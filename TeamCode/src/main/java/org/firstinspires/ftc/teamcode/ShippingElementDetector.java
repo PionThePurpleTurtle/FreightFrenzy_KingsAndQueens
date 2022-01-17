@@ -69,7 +69,7 @@ public class ShippingElementDetector extends OpenCvPipeline {
         rightPer = percentage(rightValue*100);
 
 //        telemetry.addData("Percent left:",leftPer);
-//        telemetry.addData("Percent middle:",middlePer); among us update
+//        telemetry.addData("Percent middle:",middlePer);
 //        telemetry.addData("Percent right:",rightPer);
         telemetry.addData("Position", position);
         //telemetry.update();
