@@ -67,41 +67,37 @@ public class TestDetectorAuto extends LinearOpMode {
             leftPer = detector.leftPer;
             middlePer = detector.middlePer;
             rightPer = detector.rightPer;
-            telemetry.addData("Percent left:",leftPer);
-            telemetry.addData("Percent middle:",middlePer);
-            telemetry.addData("Percent right:",rightPer);
+            telemetry.addData("Percent left",leftPer);
+            telemetry.addData("Percent middle",middlePer);
+            telemetry.addData("Percent right",rightPer);
             telemetry.addData("Position", position);
             telemetry.update();
         }
 
         waitForStart();
+            while (opModeIsActive()){
+                telemetry.addData("Position", position);
+                telemetry.update();
+            }
 
-//        if (detector.getElementPosition() == ShippingElementDetector.ElementPosition.LEFT){
-//            telemetry.addLine("Left");
-//        }
-//        else if (detector.getElementPosition() == ShippingElementDetector.ElementPosition.MIDDLE){
-//            telemetry.addLine("Middle");
-//
-//        }
-//        else {
-//            telemetry.addLine("Right");
-//        }
         switch (detector.getElementPosition()){
             case LEFT:
-                telemetry.addLine("Left");
+                telemetry.addLine("Position Detected: LEFT");
+                telemetry.update();
                 break;
             case MIDDLE:
-                telemetry.addLine("Middle");
+                telemetry.addLine("Position Detected: MIDDLE");
+                telemetry.update();
                 break;
             case RIGHT:
-                telemetry.addLine("Right");
+                telemetry.addLine("Position Detected: RIGHT");
+                telemetry.update();
                 break;
             default:
                 telemetry.addLine("None");
+                telemetry.update();
                 break;
         }
-
-        telemetry.update();
 
         sleep(300000000);
 
