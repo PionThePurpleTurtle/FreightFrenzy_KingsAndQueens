@@ -60,7 +60,7 @@ public class TestDetectorAuto extends LinearOpMode {
                  */
             }
         });
-        //webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+        
 
         while (!isStarted()){
             position = detector.position;
@@ -75,29 +75,27 @@ public class TestDetectorAuto extends LinearOpMode {
         }
 
         waitForStart();
-            while (opModeIsActive()){
-                telemetry.addData("Position", position);
-                telemetry.update();
-            }
+        while (opModeIsActive()){
 
-        switch (detector.getElementPosition()){
-            case LEFT:
-                telemetry.addLine("Position Detected: LEFT");
-                telemetry.update();
-                break;
-            case MIDDLE:
-                telemetry.addLine("Position Detected: MIDDLE");
-                telemetry.update();
-                break;
-            case RIGHT:
-                telemetry.addLine("Position Detected: RIGHT");
-                telemetry.update();
-                break;
-            default:
-                telemetry.addLine("None");
-                telemetry.update();
-                break;
-        }
+                switch (detector.getElementPosition()){
+                    case LEFT:
+                        telemetry.addLine("Position Detected: LEFT");
+                        telemetry.update();
+                        break;
+                    case MIDDLE:
+                        telemetry.addLine("Position Detected: MIDDLE");
+                        telemetry.update();
+                        break;
+                    case RIGHT:
+                        telemetry.addLine("Position Detected: RIGHT");
+                        telemetry.update();
+                        break;
+                    default:
+                        telemetry.addLine("None");
+                        telemetry.update();
+                        break;
+                }
+            }
 
         sleep(300000000);
 
