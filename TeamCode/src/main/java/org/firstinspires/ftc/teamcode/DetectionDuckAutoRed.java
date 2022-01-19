@@ -28,7 +28,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 //@Disabled //Comment out to run
-@Autonomous(name = "Detection and Duck", group = "Auto")
+@Autonomous(name = "Red Detection and Duck", group = "Auto")
 public class DetectionDuckAutoRed extends LinearOpMode {
 
     OpenCvWebcam webcam;
@@ -42,6 +42,26 @@ public class DetectionDuckAutoRed extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        leftFront = hardwareMap.dcMotor.get("leftFront");
+        rightFront = hardwareMap.dcMotor.get("rightFront");
+        leftRear = hardwareMap.dcMotor.get("leftRear");
+        rightRear = hardwareMap.dcMotor.get("rightRear");
+        duckW = hardwareMap.dcMotor.get("duckW");
+        harvester = hardwareMap.dcMotor.get("harvester");
+        spool = hardwareMap.dcMotor.get("spool");
+        dumpster = hardwareMap.servo.get("dumpy");
+        
+        leftRear.setDirection(DcMotor.Direction.REVERSE);
+        leftFront.setDirection(DcMotor.Direction.REVERSE);
+        
+        rightRear.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        leftFront.setPower(0);
+        duckW.setPower(0);
+        harvester.setPower(0);
+        spool.setPower(0);
+        
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         ShippingElementDetector detector = new ShippingElementDetector(telemetry);
@@ -73,7 +93,7 @@ public class DetectionDuckAutoRed extends LinearOpMode {
         });
         
 
-        while (!isStarted()){
+        while (!isStarted() && !isStopRequested()){
             position = detector.position;
             leftPer = detector.leftPer;
             middlePer = detector.middlePer;
@@ -82,6 +102,7 @@ public class DetectionDuckAutoRed extends LinearOpMode {
             telemetry.addData("Percent middle",middlePer);
             telemetry.addData("Percent right",rightPer);
             telemetry.addData("Position", position);
+            telemetry.addData("time", getRuntime());
             telemtry.addData("Frame Count", webcam.getFrameCount());
             telemtry.addData("FPS", String.format("%.2f", webcam.getFps);
             telemtry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
@@ -115,5 +136,247 @@ public class DetectionDuckAutoRed extends LinearOpMode {
                 }
             }
         webcam.stopStreaming();
+    }
+    void Turn45Right() {
+        leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+
+        leftFront.setTargetPosition(-430);
+        leftRear.setTargetPosition(-430);
+        rightFront.setTargetPosition(430);
+        rightRear.setTargetPosition(430);
+        leftFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        leftFront.setPower(-.3);
+        leftRear.setPower(-.3);
+        rightFront.setPower(.3);
+        rightRear.setPower(.3);
+        while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
+            sleep(0);
+        }
+        leftFront.setPower(0);
+        leftRear.setPower(0);
+        rightFront.setPower(0);
+        rightRear.setPower(0);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    void Turn90Right() {
+        leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+
+        leftFront.setTargetPosition(-660);
+        leftRear.setTargetPosition(-660);
+        rightFront.setTargetPosition(660);
+        rightRear.setTargetPosition(660);
+        leftFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        leftFront.setPower(-.3);
+        leftRear.setPower(-.3);
+        rightFront.setPower(.3);
+        rightRear.setPower(.3);
+        while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
+            sleep(0);
+        }
+        leftFront.setPower(0);
+        leftRear.setPower(0);
+        rightFront.setPower(0);
+        rightRear.setPower(0);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+
+    void Forward (int distance) {
+        //int ticksToDrive = (int) Math.floor() ;
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftFront.setTargetPosition(distance * 28 /* 29  */);
+        leftRear.setTargetPosition(distance * 28);
+        rightFront.setTargetPosition(distance * 28);
+        rightRear.setTargetPosition(distance * 28);
+        leftFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        leftFront.setPower(.3);
+        leftRear.setPower(.3);
+        rightFront.setPower(.3);
+        rightRear.setPower(.3);
+        while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
+            sleep(0);
+        }
+        leftFront.setPower(0);
+        leftRear.setPower(0);
+        rightFront.setPower(0);
+        rightRear.setPower(0);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    void Backward (int distance) {
+        leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+
+        leftFront.setTargetPosition(-distance * 28);
+        leftRear.setTargetPosition(-distance * 28);
+        rightFront.setTargetPosition(-distance * 28);
+        rightRear.setTargetPosition(-distance * 28);
+        leftFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        leftFront.setPower(-.2);
+        leftRear.setPower(-.2);
+        rightFront.setPower(-.2);
+        rightRear.setPower(-.2);
+        while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
+            sleep(0);
+        }
+        leftFront.setPower(0);
+        leftRear.setPower(0);
+        rightFront.setPower(0);
+        rightRear.setPower(0);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    void strafeLeft (int distance) {
+        leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+
+        leftFront.setTargetPosition(distance * 43);
+        leftRear.setTargetPosition(-distance * 43);
+        rightFront.setTargetPosition(-distance * 43);
+        rightRear.setTargetPosition(distance * 43);
+        leftFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        leftFront.setPower(.5);
+        leftRear.setPower(-.5);
+        rightFront.setPower(-5);
+        rightRear.setPower(.5);
+        while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
+            sleep(0);
+        }
+        leftFront.setPower(0);
+        leftRear.setPower(0);
+        rightFront.setPower(0);
+        rightRear.setPower(0);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    void strafeRight (int distance) {
+        leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+
+        leftFront.setTargetPosition(-distance * 43);
+        leftRear.setTargetPosition(distance * 43);
+        rightFront.setTargetPosition(distance * 43);
+        rightRear.setTargetPosition(-distance * 43);
+        leftFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        leftFront.setPower(-.5);
+        leftRear.setPower(.5);
+        rightFront.setPower(.5);
+        rightRear.setPower(-.5);
+        while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
+            sleep(0);
+        }
+        leftFront.setPower(0);
+        leftRear.setPower(0);
+        rightFront.setPower(0);
+        rightRear.setPower(0);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    void scoreTop() {
+        spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+
+        spool.setTargetPosition(1430);
+        spool.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        spool.setPower(1);
+        while (opModeIsActive()&& spool.isBusy()) {
+            sleep(0);
+        }
+        spool.setPower(0);
+        spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        dumpster.setPosition(.635);
+        sleep(3000);
+        dumpster.setPosition(.2);
+        sleep(1000);
+        spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+
+        spool.setTargetPosition(-1430);
+        spool.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        spool.setPower(-1);
+        while (opModeIsActive()&& spool.isBusy()) {
+            sleep(0);
+        }
+        spool.setPower(0);
+        spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+
     }
 }
