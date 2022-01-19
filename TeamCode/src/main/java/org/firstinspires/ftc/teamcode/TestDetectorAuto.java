@@ -71,6 +71,9 @@ public class TestDetectorAuto extends LinearOpMode {
             telemetry.addData("Percent middle",middlePer);
             telemetry.addData("Percent right",rightPer);
             telemetry.addData("Position", position);
+            telemtry.addData("Frame Count", webcam.getFrameCount());
+            telemtry.addData("FPS", String.format("%.2f", webcam.getFps);
+            telemtry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
             telemetry.update();
         }
 
@@ -94,11 +97,12 @@ public class TestDetectorAuto extends LinearOpMode {
                         telemetry.addLine("None");
                         telemetry.update();
                         break;
+                    sleep(300000000);
+                        
+                        
+                        
                 }
             }
-        //please move sleep into op mode running to test if telemetry updates after break
-        sleep(300000000);
-
         webcam.stopStreaming();
     }
 }
