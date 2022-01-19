@@ -96,6 +96,7 @@ public class TestDetectorAuto extends LinearOpMode {
                         break;
                 }
             }
+        //please update to move auto methods out of while loop so it only runs once
 
         sleep(300000000);
 
