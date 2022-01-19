@@ -96,8 +96,7 @@ public class TestDetectorAuto extends LinearOpMode {
                         break;
                 }
             }
-        //please update to move auto methods out of while loop so it only runs once or else among us
- 
+        //please move sleep into op mode running to test if telemetry updates after break
         sleep(300000000);
 
         webcam.stopStreaming();
