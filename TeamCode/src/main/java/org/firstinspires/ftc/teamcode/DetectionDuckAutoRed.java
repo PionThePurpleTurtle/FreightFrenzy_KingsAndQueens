@@ -5,6 +5,14 @@ import android.graphics.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import java.util.List;
 
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvWebcam;
@@ -20,14 +28,17 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 //@Disabled //Comment out to run
-@Autonomous(name = "TestDetectorAuto", group = "Auto")
-public class TestDetectorAuto extends LinearOpMode {
+@Autonomous(name = "Detection and Duck", group = "Auto")
+public class DetectionDuckAutoRed extends LinearOpMode {
 
     OpenCvWebcam webcam;
     private String position;
     private double leftPer;
     private double middlePer;
     private double rightPer;
+    DcMotor leftFront, rightFront, leftRear, rightRear;
+    DcMotor duckW, harvester, spool;
+    Servo dumpster;
 
     @Override
     public void runOpMode() throws InterruptedException {
