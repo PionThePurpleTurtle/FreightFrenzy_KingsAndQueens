@@ -137,6 +137,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
             }
         webcam.stopStreaming();
     }
+    
     void Turn45Right() {
         leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
