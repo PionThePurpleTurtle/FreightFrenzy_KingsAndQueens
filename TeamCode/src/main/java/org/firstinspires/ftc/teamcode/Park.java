@@ -112,10 +112,10 @@ public class Park extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
 
-        leftFront.setTargetPosition(-1320);
-        leftRear.setTargetPosition(-1320);
-        rightFront.setTargetPosition(1320);
-        rightRear.setTargetPosition(1320);
+        leftFront.setTargetPosition(-1300);
+        leftRear.setTargetPosition(-1300);
+        rightFront.setTargetPosition(1300);
+        rightRear.setTargetPosition(1300);
         leftFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
