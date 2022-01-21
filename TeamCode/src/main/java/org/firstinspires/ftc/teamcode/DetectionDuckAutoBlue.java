@@ -442,7 +442,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         dumpster.setPosition(.635);
         sleep(2500);
         dumpster.setPosition(.2);
-        sleep(1000);
+        sleep(500);
         spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
 
         spool.setTargetPosition(-1430);
@@ -469,15 +469,45 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         
         dumpster.setPosition(.5);
-        sleep(300);
+        sleep(400);
         Backward(19);
         dumpster.setPosition(.64);
-        sleep(1500);
+        sleep(2500);
+        dumpster.setPosition(.5);
+        sleep(500);
         Forward(35);
         sleep(100);
         
         spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         spool.setTargetPosition(-1192);
+        spool.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        spool.setPower(-1);
+        while (opModeIsActive()&& spool.isBusy()) {
+            sleep(0);
+        }
+        spool.setPower(0);
+        spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    
+    void scoreLow() {
+        spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+
+        spool.setTargetPosition(715);
+        spool.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        spool.setPower(1);
+        while (opModeIsActive()&& spool.isBusy()) {
+            sleep(0);
+        }
+        spool.setPower(0);
+        spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        dumpster.setPosition(.64);
+        sleep(2500);
+        dumpster.setPosition(.2);
+        sleep(500);
+        spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+
+        spool.setTargetPosition(-715);
         spool.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         spool.setPower(-1);
         while (opModeIsActive()&& spool.isBusy()) {
