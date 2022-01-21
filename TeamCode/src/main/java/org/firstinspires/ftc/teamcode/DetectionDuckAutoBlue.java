@@ -28,7 +28,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 //@Disabled //Comment out to run
-@Autonomous(name = "BLue Detection and Duck", group = "Auto")
+@Autonomous(name = "Blue Detection and Duck", group = "Auto")
 public class DetectionDuckAutoBlue extends LinearOpMode {
 
     OpenCvWebcam webcam;
@@ -455,7 +455,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
 
-        spool.setTargetPosition(1073);
+        spool.setTargetPosition(1192);
         spool.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         spool.setPower(1);
         while (opModeIsActive()&& spool.isBusy()) {
@@ -473,7 +473,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         sleep(100);
         
         spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
-        spool.setTargetPosition(-1073);
+        spool.setTargetPosition(-1192);
         spool.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         spool.setPower(-1);
         while (opModeIsActive()&& spool.isBusy()) {
