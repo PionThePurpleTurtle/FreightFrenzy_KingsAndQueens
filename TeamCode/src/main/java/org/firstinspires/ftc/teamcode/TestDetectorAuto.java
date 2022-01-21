@@ -60,7 +60,7 @@ public class TestDetectorAuto extends LinearOpMode {
                  */
             }
         });
-        
+
 
         while (!isStarted()){
             position = detector.position;
@@ -71,17 +71,18 @@ public class TestDetectorAuto extends LinearOpMode {
             telemetry.addData("Percent middle",middlePer);
             telemetry.addData("Percent right",rightPer);
             telemetry.addData("Position", position);
-            telemtry.addData("Frame Count", webcam.getFrameCount());
-            telemtry.addData("FPS", String.format("%.2f", webcam.getFps);
-            telemtry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
+            telemetry.addData("Frame Count", webcam.getFrameCount());
+            telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
+            telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
             telemetry.update();
         }
 
         waitForStart();
-        while (opModeIsActive()){
-
+        if (opModeIsActive()){
+            telemetry.update();
                 switch (detector.getElementPosition()){
                     case LEFT:
+
                         telemetry.addLine("Position Detected: LEFT");
                         telemetry.update();
                         break;
@@ -97,11 +98,10 @@ public class TestDetectorAuto extends LinearOpMode {
                         telemetry.addLine("None");
                         telemetry.update();
                         break;
-                    sleep(300000000);
-                        
-                        
-                        
                 }
+
+                telemetry.update();
+                sleep(3000000);
             }
         webcam.stopStreaming();
     }

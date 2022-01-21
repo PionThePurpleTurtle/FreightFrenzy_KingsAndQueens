@@ -51,8 +51,8 @@ public class DetectionDuckAutoRed extends LinearOpMode {
         spool = hardwareMap.dcMotor.get("spool");
         dumpster = hardwareMap.servo.get("dumpy");
         
-        leftRear.setDirection(DcMotor.Direction.REVERSE);
-        leftFront.setDirection(DcMotor.Direction.REVERSE);
+        rightRear.setDirection(DcMotor.Direction.REVERSE);
+        rightFront.setDirection(DcMotor.Direction.REVERSE);
         
         rightRear.setPower(0);
         rightFront.setPower(0);
@@ -103,9 +103,9 @@ public class DetectionDuckAutoRed extends LinearOpMode {
             telemetry.addData("Percent right",rightPer);
             telemetry.addData("Position", position);
             telemetry.addData("time", getRuntime());
-            telemtry.addData("Frame Count", webcam.getFrameCount());
-            telemtry.addData("FPS", String.format("%.2f", webcam.getFps);
-            telemtry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
+            telemetry.addData("Frame Count", webcam.getFrameCount());
+            telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
+            telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
             telemetry.update();
         }
 
@@ -129,11 +129,12 @@ public class DetectionDuckAutoRed extends LinearOpMode {
                         telemetry.addLine("None");
                         telemetry.update();
                         break;
-                    sleep(300000000);
+
                         
                         
                         
                 }
+            sleep(300000000);
             }
         webcam.stopStreaming();
     }

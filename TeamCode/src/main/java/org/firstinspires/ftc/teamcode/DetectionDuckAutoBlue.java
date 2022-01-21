@@ -51,8 +51,8 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         spool = hardwareMap.dcMotor.get("spool");
         dumpster = hardwareMap.servo.get("dumpy");
         
-        leftRear.setDirection(DcMotor.Direction.REVERSE);
-        leftFront.setDirection(DcMotor.Direction.REVERSE);
+        rightRear.setDirection(DcMotor.Direction.REVERSE);
+        rightFront.setDirection(DcMotor.Direction.REVERSE);
         
         rightRear.setPower(0);
         rightFront.setPower(0);
@@ -103,37 +103,67 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
             telemetry.addData("Percent right",rightPer);
             telemetry.addData("Position", position);
             telemetry.addData("time", getRuntime());
-            telemtry.addData("Frame Count", webcam.getFrameCount());
-            telemtry.addData("FPS", String.format("%.2f", webcam.getFps);
-            telemtry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
+            telemetry.addData("Frame Count", webcam.getFrameCount());
+            telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
+            telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
             telemetry.update();
         }
 
         waitForStart();
         while (opModeIsActive()){
-
+            telemetry.update();
                 switch (detector.getElementPosition()){
                     case LEFT:
+                        Backward(9);
+                        sleep(100);
+                        Turn90Left();
+                        sleep(100);
+                        Backward(35);
+                        sleep(100);
+                        strafeLeft(3);
+                        sleep(100);
+                        duck();
+                        sleep(100);
+                        Forward(5);
+                        strafeRight(30);
+                        sleep(100);
+                        Backward(10);
+                        sleep(100);
+                        Forward(15);
+                        sleep(100);
+                        Turn180();
+                        sleep(100);
+                        Backward(20);
+                        sleep(100);
+                        scoreTop();
+                        Forward(34);
+                        sleep(100);
+                        strafeRight(10);
+
+
                         telemetry.addLine("Position Detected: LEFT");
                         telemetry.update();
                         break;
                     case MIDDLE:
+                        Backward(20);
                         telemetry.addLine("Position Detected: MIDDLE");
                         telemetry.update();
                         break;
                     case RIGHT:
+                        strafeLeft(20);
                         telemetry.addLine("Position Detected: RIGHT");
                         telemetry.update();
                         break;
                     default:
+                        strafeRight(20);
                         telemetry.addLine("None");
                         telemetry.update();
                         break;
-                    sleep(300000000);
                         
                         
                         
                 }
+                sleep(100000000);
             }
         webcam.stopStreaming();
     }
@@ -173,16 +203,50 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
-    void Turn90Right() {
+    void Turn90Left() {
         leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
 
-        leftFront.setTargetPosition(-660);
-        leftRear.setTargetPosition(-660);
-        rightFront.setTargetPosition(660);
-        rightRear.setTargetPosition(660);
+        leftFront.setTargetPosition(660);
+        leftRear.setTargetPosition(660);
+        rightFront.setTargetPosition(-660);
+        rightRear.setTargetPosition(-660);
+        leftFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        leftFront.setPower(.3);
+        leftRear.setPower(.3);
+        rightFront.setPower(-.3);
+        rightRear.setPower(-.3);
+        while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
+            sleep(0);
+        }
+        leftFront.setPower(0);
+        leftRear.setPower(0);
+        rightFront.setPower(0);
+        rightRear.setPower(0);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+    void Turn180() {
+        leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+
+        leftFront.setTargetPosition(-1310);
+        leftRear.setTargetPosition(-1310);
+        rightFront.setTargetPosition(1310);
+        rightRear.setTargetPosition(1310);
         leftFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
@@ -286,18 +350,18 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
 
-        leftFront.setTargetPosition(distance * 43);
-        leftRear.setTargetPosition(-distance * 43);
-        rightFront.setTargetPosition(-distance * 43);
-        rightRear.setTargetPosition(distance * 43);
+        leftFront.setTargetPosition(-distance * 43);
+        leftRear.setTargetPosition(distance * 43);
+        rightFront.setTargetPosition(distance * 43);
+        rightRear.setTargetPosition(-distance * 43);
         leftFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
-        leftFront.setPower(.5);
-        leftRear.setPower(-.5);
-        rightFront.setPower(-5);
-        rightRear.setPower(.5);
+        leftFront.setPower(-.5);
+        leftRear.setPower(.5);
+        rightFront.setPower(.5);
+        rightRear.setPower(-.5);
         while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
             sleep(0);
         }
@@ -321,18 +385,18 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
 
-        leftFront.setTargetPosition(-distance * 43);
-        leftRear.setTargetPosition(distance * 43);
-        rightFront.setTargetPosition(distance * 43);
-        rightRear.setTargetPosition(-distance * 43);
+        leftFront.setTargetPosition(distance * 43);
+        leftRear.setTargetPosition(-distance * 43);
+        rightFront.setTargetPosition(-distance * 43);
+        rightRear.setTargetPosition(distance * 43);
         leftFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
-        leftFront.setPower(-.5);
-        leftRear.setPower(.5);
-        rightFront.setPower(.5);
-        rightRear.setPower(-.5);
+        leftFront.setPower(.5);
+        leftRear.setPower(-.5);
+        rightFront.setPower(-.5);
+        rightRear.setPower(.5);
         while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
             sleep(0);
         }
@@ -376,8 +440,11 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         }
         spool.setPower(0);
         spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
 
-
-
+    void duck(){
+        duckW.setPower(.5);
+        sleep(3500);
+        duckW.setPower(0);
     }
 }

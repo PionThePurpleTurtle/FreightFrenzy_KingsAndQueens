@@ -93,7 +93,7 @@ public class LeftStick extends OpMode {
         double strafe;
         double rotate;
 
-        drive = gamepad1.left_stick_y * .75;
+        drive = -gamepad1.left_stick_y * .75;
         strafe = gamepad1.left_stick_x * .75;
         rotate = gamepad1.right_stick_x * .75;
 
