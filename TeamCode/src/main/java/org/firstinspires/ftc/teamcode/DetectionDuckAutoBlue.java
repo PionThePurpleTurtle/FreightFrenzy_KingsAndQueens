@@ -243,10 +243,10 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
 
-        leftFront.setTargetPosition(-1310);
-        leftRear.setTargetPosition(-1310);
-        rightFront.setTargetPosition(1310);
-        rightRear.setTargetPosition(1310);
+        leftFront.setTargetPosition(-1320);
+        leftRear.setTargetPosition(-1320);
+        rightFront.setTargetPosition(1320);
+        rightRear.setTargetPosition(1320);
         leftFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
