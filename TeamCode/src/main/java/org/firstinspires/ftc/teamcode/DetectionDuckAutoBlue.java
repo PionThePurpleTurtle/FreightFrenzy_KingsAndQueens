@@ -123,7 +123,9 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
                         scoreTop();
                         Forward(34);
                         sleep(100);
-                        strafeRight(10);
+                        strafeRight(12);
+                        sleep(100);
+                        Forward(4);
                         
                         break;
                     case MIDDLE:
@@ -132,7 +134,9 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
                         
                         earlyActions();
                         scoreMid();
-                        strafeRight(10);
+                        strafeRight(12);
+                        sleep(100);
+                        Forward(4);
                         
                         break;
                     case RIGHT:
