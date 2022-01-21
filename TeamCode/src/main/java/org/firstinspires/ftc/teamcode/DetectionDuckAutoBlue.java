@@ -114,40 +114,26 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
             telemetry.update();
                 switch (detector.getElementPosition()){
                     case LEFT:
-                        Backward(9);
-                        sleep(100);
-                        Turn90Left();
-                        sleep(100);
-                        Backward(35);
-                        sleep(100);
-                        strafeLeft(3);
-                        sleep(100);
-                        duck();
-                        sleep(100);
-                        Forward(5);
-                        strafeRight(30);
-                        sleep(100);
-                        Backward(10);
-                        sleep(100);
-                        Forward(15);
-                        sleep(100);
-                        Turn180();
-                        sleep(100);
-                        Backward(20);
+                        telemetry.addLine("Position Detected: LEFT");
+                        telemetry.update();
+                        
+                        earlyActions();
+                        Backward(18);
                         sleep(100);
                         scoreTop();
                         Forward(34);
                         sleep(100);
                         strafeRight(10);
-
-
-                        telemetry.addLine("Position Detected: LEFT");
-                        telemetry.update();
+                        
                         break;
                     case MIDDLE:
-                        Backward(20);
                         telemetry.addLine("Position Detected: MIDDLE");
                         telemetry.update();
+                        
+                        earlyActions();
+                        scoreMid();
+                        strafeRight(10);
+                        
                         break;
                     case RIGHT:
                         strafeLeft(20);
@@ -166,6 +152,29 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
                 sleep(100000000);
             }
         webcam.stopStreaming();
+    }
+    
+    void earlyActions(){
+        dumpster.setPosition(.2);
+        Backward(9);
+        sleep(100);
+        Turn90Left();
+         sleep(100);
+        Backward(35);
+        sleep(100);
+        strafeLeft(3);
+        sleep(100);
+        duck();
+        sleep(100);
+        Forward(5);
+        strafeRight(30);
+        sleep(100);
+        Backward(10);
+        sleep(100);
+        Forward(15);
+        sleep(100);
+        Turn180();
+        sleep(100);
     }
     
     void Turn45Right() {
@@ -427,12 +436,44 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         spool.setPower(0);
         spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         dumpster.setPosition(.635);
-        sleep(3000);
+        sleep(2500);
         dumpster.setPosition(.2);
         sleep(1000);
         spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
 
         spool.setTargetPosition(-1430);
+        spool.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        spool.setPower(-1);
+        while (opModeIsActive()&& spool.isBusy()) {
+            sleep(0);
+        }
+        spool.setPower(0);
+        spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    
+    void scoreMid() {
+        spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+
+        spool.setTargetPosition(1073);
+        spool.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        spool.setPower(1);
+        while (opModeIsActive()&& spool.isBusy()) {
+            sleep(0);
+        }
+        spool.setPower(0);
+        spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        
+        dumpster.setPosition(.5);
+        sleep(300);
+        Backward(19);
+        dumpster.setPosition(.64);
+        sleep(1500);
+        Forward(35);
+        sleep(100);
+        
+        spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        spool.setTargetPosition(-1073);
         spool.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         spool.setPower(-1);
         while (opModeIsActive()&& spool.isBusy()) {
@@ -447,4 +488,5 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         sleep(3500);
         duckW.setPower(0);
     }
+    
 }
