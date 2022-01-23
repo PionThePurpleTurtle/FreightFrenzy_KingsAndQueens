@@ -113,8 +113,24 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         while (opModeIsActive()){
             telemetry.update();
                 switch (detector.getElementPosition()){
-                    case LEFT:
+                    case LEFT: //low
                         telemetry.addLine("Position Detected: LEFT");
+                        telemetry.update();
+                        
+                        break;
+                    case MIDDLE: //mid
+                        telemetry.addLine("Position Detected: MIDDLE");
+                        telemetry.update();
+                        
+                        earlyActions();
+                        scoreMid();
+                        strafeRight(12);
+                        sleep(100);
+                        Forward(4);
+                        
+                        break;
+                    case RIGHT: //top
+                        telemetry.addLine("Position Detected: RIGHT");
                         telemetry.update();
                         
                         earlyActions();
@@ -127,22 +143,6 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
                         sleep(100);
                         Forward(4);
                         
-                        break;
-                    case MIDDLE:
-                        telemetry.addLine("Position Detected: MIDDLE");
-                        telemetry.update();
-                        
-                        earlyActions();
-                        scoreMid();
-                        strafeRight(12);
-                        sleep(100);
-                        Forward(4);
-                        
-                        break;
-                    case RIGHT:
-                        strafeLeft(20);
-                        telemetry.addLine("Position Detected: RIGHT");
-                        telemetry.update();
                         break;
                     default:
                         strafeRight(20);
