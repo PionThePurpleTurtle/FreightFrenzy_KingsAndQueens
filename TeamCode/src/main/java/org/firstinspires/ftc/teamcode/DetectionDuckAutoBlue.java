@@ -484,9 +484,11 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         dumpster.setPosition(.64);
         sleep(2500);
         dumpster.setPosition(.5);
-        sleep(500);
+        sleep(400);
         Forward(35);
         sleep(100);
+        dumpster.setPosition(.2);
+        sleep(500);
         
         spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         spool.setTargetPosition(-1192);
