@@ -117,6 +117,16 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
                         telemetry.addLine("Position Detected: LEFT");
                         telemetry.update();
                         
+                        earlyActions();
+                        Backward(17);
+                        sleep(100);
+                        scoreLow();
+                        Forward(34);
+                        sleep(100);
+                        strafeRight(12);
+                        sleep(100);
+                        Forward(4)
+                        
                         break;
                     case MIDDLE: //mid
                         telemetry.addLine("Position Detected: MIDDLE");
