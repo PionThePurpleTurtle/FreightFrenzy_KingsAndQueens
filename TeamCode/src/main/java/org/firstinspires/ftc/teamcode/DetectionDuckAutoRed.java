@@ -118,9 +118,9 @@ public class DetectionDuckAutoRed extends LinearOpMode {
                         telemetry.update();
                         
                         earlyActions();
-                        Backward(17);
+                        Backward(18);
                         sleep(100);
-                        scoreLow();
+                        scoreTop();
                         Forward(34);
                         sleep(100);
                         strafeRight(12);
@@ -144,9 +144,9 @@ public class DetectionDuckAutoRed extends LinearOpMode {
                         telemetry.update();
                         
                         earlyActions();
-                        Backward(18);
+                        Backward(17);
                         sleep(100);
-                        scoreTop();
+                        scoreLow();
                         Forward(34);
                         sleep(100);
                         strafeRight(12);
