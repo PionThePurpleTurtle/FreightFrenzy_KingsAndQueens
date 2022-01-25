@@ -125,7 +125,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
                         sleep(100);
                         strafeRight(12);
                         sleep(100);
-                        Forward(4)
+                        Forward(4);
                         
                         break;
                     case MIDDLE: //mid
