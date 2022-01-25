@@ -301,10 +301,10 @@ public class DetectionDuckAutoRed extends LinearOpMode {
         leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
-        leftFront.setPower(.3);
-        leftRear.setPower(.3);
-        rightFront.setPower(.3);
-        rightRear.setPower(.3);
+        leftFront.setPower(.5);
+        leftRear.setPower(.5);
+        rightFront.setPower(.5);
+        rightRear.setPower(.5);
         while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
             sleep(0);
         }
@@ -336,10 +336,10 @@ public class DetectionDuckAutoRed extends LinearOpMode {
         leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
-        leftFront.setPower(-.2);
-        leftRear.setPower(-.2);
-        rightFront.setPower(-.2);
-        rightRear.setPower(-.2);
+        leftFront.setPower(-.5);
+        leftRear.setPower(-.5);
+        rightFront.setPower(-.5);
+        rightRear.setPower(-.5);
         while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
             sleep(0);
         }
