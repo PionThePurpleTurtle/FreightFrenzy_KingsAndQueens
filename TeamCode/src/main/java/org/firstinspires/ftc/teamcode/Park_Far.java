@@ -15,6 +15,7 @@ import java.util.List;
 
 import java.util.List;
 
+@Disabled
 @Autonomous(name = "Red Duck and Park")
 public class Park_Far extends LinearOpMode {
     DcMotor leftFront, rightFront, leftRear, rightRear;
