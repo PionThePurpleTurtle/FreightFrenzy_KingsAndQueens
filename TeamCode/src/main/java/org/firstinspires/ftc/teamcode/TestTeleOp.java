@@ -183,15 +183,15 @@ public class TestTeleOp extends OpMode {
         }
 
 
-        if (gamepad2.a && !bumperButtonState) {
-            grabIsActive = !grabIsActive;
-        }
-
-        if (grabIsActive) {
-            dumpster.setPosition(.2);
-        } else {
-            dumpster.setPosition(.635);
-        }
+//        if (gamepad2.a && !bumperButtonState) {
+//            grabIsActive = !grabIsActive;
+//        }
+//
+//        if (grabIsActive) {
+//            dumpster.setPosition(.2);
+//        } else {
+//            dumpster.setPosition(.635);
+//        }
 
         if (gamepad2.left_bumper && !inState) {
             inActive = !inActive;
