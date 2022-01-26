@@ -47,8 +47,8 @@ public class ShippingElementDetector extends OpenCvPipeline {
     public Mat processFrame(Mat input) { //Turn color image to greyscale
         Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
 
-        Scalar lowHSV = new Scalar(0, 100, 20);//Color threshhold for yellow (23, 50, 70), (70, 255, 255)
-        Scalar highHSV = new Scalar(10, 255, 255);
+        Scalar lowHSV = new Scalar(23, 50, 70);//Color threshhold for yellow ----> for red??? (0, 100, 20), (10, 255, 255)
+        Scalar highHSV = new Scalar(70, 255, 255); // 70 could be 32?? (10, 255, 255)
 
         Core.inRange(mat, lowHSV, highHSV, mat);  //Convert from color to greyscale
         Mat left = mat.submat(LEFT_ROI); //Create a new image that is a portion of the old one within the rectangle
