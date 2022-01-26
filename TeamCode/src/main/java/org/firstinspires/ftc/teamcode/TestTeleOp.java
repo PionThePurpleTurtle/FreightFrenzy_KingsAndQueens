@@ -111,102 +111,106 @@ public class TestTeleOp extends OpMode {
                 if (Math.abs(spool.getCurrentPosition() - LIFT_LOW) < 10) {
                     liftState = liftState.LIFT_START;
                 }
-                if (gamepad1.y && liftState != liftState.LIFT_START) {
-                    liftState = liftState.LIFT_START;
-                }
-
-                double drive;
-                double strafe;
-                double rotate;
-
-                drive = -gamepad1.left_stick_y * .75;
-                strafe = gamepad1.left_stick_x * .75;
-                rotate = gamepad1.right_stick_x * .75;
-
-                double driveInput = drive;
-                double strafeInput = strafe;
-                double rotateInput = rotate;
-
-                duckW.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                spool.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                break;
 
 
-                telemetry.addData("spool", spool.getCurrentPosition());
-                telemetry.addData("leftFront", leftFront.getCurrentPosition());
-                telemetry.addData("rightFront", rightFront.getCurrentPosition());
-                telemetry.addData("leftRear", leftRear.getCurrentPosition());
-                telemetry.addData("rightRear", rightRear.getCurrentPosition());
-
-
-                if (gamepad1.left_bumper) {
-                    driveInput = drive / 2;
-                    strafeInput = strafe / 2;
-                    rotateInput = rotate / 2;
-                    leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                    rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                    leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                    rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                } else if (gamepad1.right_bumper) {
-                    driveInput = drive * 2;
-                    strafeInput = strafe * 2;
-                    rotateInput = rotate * 2;
-                } else {
-                    driveInput = drive;
-                    strafeInput = strafe;
-                    rotateInput = rotate;
-                }
-
-                leftFront.setPower(driveInput + strafeInput + rotateInput);
-                leftRear.setPower(driveInput - strafeInput + rotateInput);
-                rightFront.setPower(driveInput - strafeInput - rotateInput);
-                rightRear.setPower(driveInput + strafeInput - rotateInput);
-
-                spool.setPower(-gamepad2.left_stick_y);
-
-                if (gamepad2.dpad_left) {
-                    duckW.setPower(.53);
-                } else if (gamepad2.dpad_right) {
-                    duckW.setPower(-.53);
-                } else {
-                    duckW.setPower(0);
-                }
-
-
-                if (gamepad2.a && !bumperButtonState) {
-                    grabIsActive = !grabIsActive;
-                }
-
-                if (grabIsActive) {
-                    dumpster.setPosition(.2);
-                } else {
-                    dumpster.setPosition(.635);
-                }
-
-                if (gamepad2.left_bumper && !inState) {
-                    inActive = !inActive;
-                }
-
-                if (inActive) {
-                    harvester.setPower(-.62);
-                } else if (gamepad2.right_bumper) {
-                    harvester.setPower(.2);
-                } else if (gamepad2.y) {
-                    harvester.setPower(-.4);
-                } else if (gamepad2.x) {
-                    harvester.setPower(-1);
-                } else {
-                    harvester.setPower(0);
-                }
-
-                inState = gamepad2.left_bumper;
-                bumperButtonState = gamepad2.a;
 
         }
+
+        if (gamepad1.y && liftState != liftState.LIFT_START) {
+            liftState = liftState.LIFT_START;
+        }
+
+        double drive;
+        double strafe;
+        double rotate;
+
+        drive = -gamepad1.left_stick_y * .75;
+        strafe = gamepad1.left_stick_x * .75;
+        rotate = gamepad1.right_stick_x * .75;
+
+        double driveInput = drive;
+        double strafeInput = strafe;
+        double rotateInput = rotate;
+
+        duckW.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        spool.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
+        telemetry.addData("spool", spool.getCurrentPosition());
+        telemetry.addData("leftFront", leftFront.getCurrentPosition());
+        telemetry.addData("rightFront", rightFront.getCurrentPosition());
+        telemetry.addData("leftRear", leftRear.getCurrentPosition());
+        telemetry.addData("rightRear", rightRear.getCurrentPosition());
+
+
+        if (gamepad1.left_bumper) {
+            driveInput = drive / 2;
+            strafeInput = strafe / 2;
+            rotateInput = rotate / 2;
+            leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        } else if (gamepad1.right_bumper) {
+            driveInput = drive * 2;
+            strafeInput = strafe * 2;
+            rotateInput = rotate * 2;
+        } else {
+            driveInput = drive;
+            strafeInput = strafe;
+            rotateInput = rotate;
+        }
+
+        leftFront.setPower(driveInput + strafeInput + rotateInput);
+        leftRear.setPower(driveInput - strafeInput + rotateInput);
+        rightFront.setPower(driveInput - strafeInput - rotateInput);
+        rightRear.setPower(driveInput + strafeInput - rotateInput);
+
+        spool.setPower(-gamepad2.left_stick_y);
+
+        if (gamepad2.dpad_left) {
+            duckW.setPower(.53);
+        } else if (gamepad2.dpad_right) {
+            duckW.setPower(-.53);
+        } else {
+            duckW.setPower(0);
+        }
+
+
+        if (gamepad2.a && !bumperButtonState) {
+            grabIsActive = !grabIsActive;
+        }
+
+        if (grabIsActive) {
+            dumpster.setPosition(.2);
+        } else {
+            dumpster.setPosition(.635);
+        }
+
+        if (gamepad2.left_bumper && !inState) {
+            inActive = !inActive;
+        }
+
+        if (inActive) {
+            harvester.setPower(-.62);
+        } else if (gamepad2.right_bumper) {
+            harvester.setPower(.2);
+        } else if (gamepad2.y) {
+            harvester.setPower(-.4);
+        } else if (gamepad2.x) {
+            harvester.setPower(-1);
+        } else {
+            harvester.setPower(0);
+        }
+
+        inState = gamepad2.left_bumper;
+        bumperButtonState = gamepad2.a;
 
     }
 }
