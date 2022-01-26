@@ -28,8 +28,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 //@Disabled //Comment out to run
-@Autonomous(name = "Red Detection and Duck", group = "Auto")
-public class DetectionDuckAutoRed extends LinearOpMode {
+@Autonomous(name = "Test Blue Auto", group = "Auto")
+public class TestBlueAuto extends LinearOpMode {
 
     OpenCvWebcam webcam;
     private String position;
@@ -113,21 +113,21 @@ public class DetectionDuckAutoRed extends LinearOpMode {
         while (opModeIsActive()){
             telemetry.update();
             switch (detector.getElementPosition()){
-                case LEFT: //top
+                case LEFT: //low
                     telemetry.addLine("Position Detected: LEFT");
                     telemetry.update();
 
                     earlyActions();
-                    Backward(18,.3);
+                    Backward(17,.3);
                     sleep(100);
-                    scoreTop();
+                    scoreLow();
                     Forward(30,.5);
                     sleep(100);
-                    strafeLeft(9);
+                    strafeRight(9);
                     sleep(100);
                     Turn180();
                     sleep(100);
-                    Backward(4,.2);
+                    Backward(4,.3);
 
                     break;
                 case MIDDLE: //mid
@@ -136,28 +136,28 @@ public class DetectionDuckAutoRed extends LinearOpMode {
 
                     earlyActions();
                     scoreMid();
-                    strafeLeft(9);
+                    strafeRight(9);
                     sleep(100);
                     Turn180();
                     sleep(100);
-                    Backward(4,.2);
+                    Backward(4,.3);
 
                     break;
-                case RIGHT: //low
+                case RIGHT: //top
                     telemetry.addLine("Position Detected: RIGHT");
                     telemetry.update();
 
                     earlyActions();
-                    Backward(17,.3);
+                    Backward(18,.3);
                     sleep(100);
-                    scoreLow();
+                    scoreTop();
                     Forward(34,.5);
                     sleep(100);
-                    strafeLeft(9);
+                    strafeRight(9);
                     sleep(100);
                     Turn180();
                     sleep(100);
-                    Backward(4,.2);
+                    Backward(4,.3);
 
                     break;
                 default:
@@ -180,24 +180,22 @@ public class DetectionDuckAutoRed extends LinearOpMode {
         sleep(100);
         Turn90Right();
         sleep(100);
-        Forward(30,.5);
-        sleep(100);
-        Turn90Right();
+        Backward(30,.6);
+        Backward(5, .2);
         sleep(100);
         strafeLeft(3);
         sleep(100);
-        Backward(8, .2);
-        sleep(100);
         duck();
         sleep(100);
-        strafeRight(6);
+        Forward(5,.3);
         sleep(100);
-        Forward(29,.6);
+        strafeRight(29);
         sleep(100);
-        Turn90Left();
-        Forward(10,.2);
+        Backward(10,.3);
         sleep(100);
-        Backward(15,.6);
+        Forward(15,.5);
+        sleep(100);
+        Turn180();
         sleep(100);
     }
 
@@ -254,40 +252,6 @@ public class DetectionDuckAutoRed extends LinearOpMode {
         leftRear.setPower(.3);
         rightFront.setPower(-.3);
         rightRear.setPower(-.3);
-        while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
-            sleep(0);
-        }
-        leftFront.setPower(0);
-        leftRear.setPower(0);
-        rightFront.setPower(0);
-        rightRear.setPower(0);
-        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    }
-    void Turn90Left() {
-        leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
-        leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
-        rightFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
-
-        leftFront.setTargetPosition(-660);
-        leftRear.setTargetPosition(-660);
-        rightFront.setTargetPosition(660);
-        rightRear.setTargetPosition(660);
-        leftFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
-        leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
-        rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
-        rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
-        leftFront.setPower(-.3);
-        leftRear.setPower(-.3);
-        rightFront.setPower(.3);
-        rightRear.setPower(.3);
         while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
             sleep(0);
         }
