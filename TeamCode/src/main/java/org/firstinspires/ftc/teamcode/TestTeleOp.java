@@ -46,7 +46,7 @@ public class TestTeleOp extends OpMode {
     final double DUMP_DEPOSIT = .635; // the dumping position for the dump servo
 
     // the amount of time the dump servo takes to activate in seconds
-    final double DUMP_TIME = 350;
+    final double DUMP_TIME = .5;
 
     final int LIFT_LOW = 0; // the low encoder position for the lift
     final int LIFT_HIGH = 1430;
