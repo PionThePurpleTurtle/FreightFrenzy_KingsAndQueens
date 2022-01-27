@@ -94,8 +94,9 @@ public class TestTeleOp extends OpMode {
             case LIFT_START:
                 if (gamepad2.a && touchSens.getState() == false){
                     spool.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     spool.setTargetPosition(LIFT_HIGH);
+                    spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    spool.setPower(1);
                     liftState = LiftState.LIFT_EXTEND;
                 }
                 break;
@@ -110,6 +111,8 @@ public class TestTeleOp extends OpMode {
                 if (liftTimer.seconds() >= DUMP_TIME) {
                     dumpster.setPosition(DUMP_IDLE);
                     spool.setTargetPosition(LIFT_LOW);
+                    spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    spool.setPower(-.75);
                     liftState = liftState.LIFT_RETRACT;
                 }
                 break;
@@ -141,7 +144,7 @@ public class TestTeleOp extends OpMode {
 
         duckW.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        spool.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
