@@ -83,7 +83,6 @@ public class TestTeleOp extends OpMode {
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         liftTimer.reset();
     }
 
