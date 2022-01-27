@@ -102,6 +102,7 @@ public class TestTeleOp extends OpMode {
                 break;
             case LIFT_EXTEND:
                 if (Math.abs(spool.getCurrentPosition() - LIFT_HIGH) < 10) {
+                    spool.setPower(0);
                     dumpster.setPosition(DUMP_DEPOSIT);
                     liftTimer.reset();
                     liftState = liftState.LIFT_DUMP;
@@ -118,6 +119,7 @@ public class TestTeleOp extends OpMode {
                 break;
             case LIFT_RETRACT:
                 if (Math.abs(spool.getCurrentPosition() - LIFT_LOW) < 10) {
+                    spool.setPower(0);
                     liftState = liftState.LIFT_START;
                 }
                 break;
