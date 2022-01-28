@@ -29,7 +29,6 @@ public class TestTeleOp extends OpMode {
     DcMotor leftFront, rightFront, leftRear, rightRear;
     DcMotor duckW, harvester, spool;
     Servo dumpster;
-    DigitalChannel touchSens;
     // CRServo topSlide, tape;
     boolean bumperButtonState = true;
     boolean grabIsActive = true;
@@ -63,9 +62,7 @@ public class TestTeleOp extends OpMode {
         harvester = hardwareMap.dcMotor.get("harvester");
         dumpster = hardwareMap.servo.get("dumpy");
         spool = hardwareMap.dcMotor.get("spool");
-        touchSens = hardwareMap.get(DigitalChannel.class, "touch");
 
-        touchSens.setMode(DigitalChannel.Mode.INPUT);
         rightRear.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.REVERSE);
 
@@ -91,7 +88,7 @@ public class TestTeleOp extends OpMode {
 
         switch (liftState){
             case LIFT_START:
-                if (gamepad2.a && touchSens.getState() == false){
+                if (gamepad2.a){
                     spool.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     spool.setTargetPosition(LIFT_HIGH);
                     spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
