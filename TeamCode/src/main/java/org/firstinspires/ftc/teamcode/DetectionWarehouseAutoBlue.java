@@ -28,7 +28,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 //@Disabled //Comment out to run
-@Autonomous(name = "Blue Detection Warehouse", group = "Auto")
+@Autonomous(name = "Blue Warehouse Side", group = "Auto")
 public class DetectionWarehouseAutoBlue extends LinearOpMode {
 
     OpenCvWebcam webcam;
@@ -110,11 +110,14 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
 //            telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
             telemetry.update();
 
-            if (gamepad2.a){
+            if (gamepad2.dpad_up){
                 wait++;
                 if(wait > 20){
                     wait = 0;
                 }
+            }
+            else if (gamepad2.dpad_down){
+                wait--;
             }
         }
 
@@ -131,7 +134,9 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
                         sleep(100);
                         scoreLow();
                         Forward(12,.5);
+                        sleep(50);
                         Turn90Right();
+                        sleep(50);
                         Forward(65,.4);
 
                         
@@ -143,7 +148,9 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
                         earlyActions();
                         scoreMid();
                         Forward(12,.5);
+                        sleep(50);
                         Turn90Right();
+                        sleep(50);
                         Forward(65,.4);
 
 

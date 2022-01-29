@@ -28,8 +28,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 //@Disabled //Comment out to run
-@Autonomous(name = "Blue Duck and Park", group = "Auto")
-public class DetectionDuckAutoBlue extends LinearOpMode {
+@Autonomous(name = "Red Warehouse Side", group = "Auto")
+public class DetectionWarehouseAutoRed extends LinearOpMode {
 
     OpenCvWebcam webcam;
     private String position;
@@ -39,6 +39,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
     DcMotor leftFront, rightFront, leftRear, rightRear;
     DcMotor duckW, harvester, spool;
     Servo dumpster;
+    int wait;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -50,10 +51,10 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         harvester = hardwareMap.dcMotor.get("harvester");
         spool = hardwareMap.dcMotor.get("spool");
         dumpster = hardwareMap.servo.get("dumpy");
-        
+
         rightRear.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.REVERSE);
-        
+
         rightRear.setPower(0);
         rightFront.setPower(0);
         leftRear.setPower(0);
@@ -61,7 +62,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         duckW.setPower(0);
         harvester.setPower(0);
         spool.setPower(0);
-        
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         ShippingElementDetector detector = new ShippingElementDetector(telemetry);
@@ -91,107 +92,114 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
                  */
             }
         });
-        
+
 
         while (!isStarted() && !isStopRequested()){
             position = detector.position;
             leftPer = detector.leftPer;
             middlePer = detector.middlePer;
             rightPer = detector.rightPer;
-            telemetry.addData("Percent left",leftPer);
-            telemetry.addData("Percent middle",middlePer);
-            telemetry.addData("Percent right",rightPer);
+            telemetry.addData("Seconds of Delay:", wait);
+//            telemetry.addData("Percent left",leftPer);
+//            telemetry.addData("Percent middle",middlePer);
+//            telemetry.addData("Percent right",rightPer);
             telemetry.addData("Position", position);
-            telemetry.addData("time", getRuntime());
-            telemetry.addData("Frame Count", webcam.getFrameCount());
-            telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
-            telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
+//            telemetry.addData("time", getRuntime());
+//            telemetry.addData("Frame Count", webcam.getFrameCount());
+//            telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
+//            telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
             telemetry.update();
+
+            if (gamepad2.dpad_up){
+                wait++;
+                if(wait > 20){
+                    wait = 0;
+                }
+            }
+            else if (gamepad2.dpad_down){
+                wait--;
+            }
         }
 
         waitForStart();
         while (opModeIsActive()){
             telemetry.update();
-                switch (detector.getElementPosition()){
-                    case LEFT: //low
-                        telemetry.addLine("Position Detected: LEFT");
-                        telemetry.update();
-                        
-                        earlyActions();
-                        Backward(17);
-                        sleep(100);
-                        scoreLow();
-                        Forward(34);
-                        sleep(100);
-                        strafeRight(9);
-                        sleep(100);
-                        Forward(4);
-                        
-                        break;
-                    case MIDDLE: //mid
-                        telemetry.addLine("Position Detected: MIDDLE");
-                        telemetry.update();
-                        
-                        earlyActions();
-                        scoreMid();
-                        strafeRight(9);
-                        sleep(100);
-                        Forward(4);
-                        
-                        break;
-                    case RIGHT: //top
-                        telemetry.addLine("Position Detected: RIGHT");
-                        telemetry.update();
-                        
-                        earlyActions();
-                        Backward(18);
-                        sleep(100);
-                        scoreTop();
-                        Forward(34);
-                        sleep(100);
-                        strafeRight(9);
-                        sleep(100);
-                        Forward(4);
-                        
-                        break;
-                    default:
-                        strafeRight(20);
-                        telemetry.addLine("None");
-                        telemetry.update();
-                        break;
-                        
-                        
-                        
-                }
-                sleep(100000000);
+            switch (detector.getElementPosition()){
+                case LEFT: //low
+                    telemetry.addLine("Position Detected: LEFT");
+                    telemetry.update();
+
+                    earlyActions();
+                    Backward(13,.35);
+                    sleep(100);
+                    scoreLow();
+                    Forward(12,.5);
+                    sleep(50);
+                    Turn90Left();
+                    sleep(50);
+                    Forward(65,.4);
+
+
+                    break;
+                case MIDDLE: //mid
+                    telemetry.addLine("Position Detected: MIDDLE");
+                    telemetry.update();
+
+                    earlyActions();
+                    scoreMid();
+                    Forward(12,.5);
+                    sleep(50);
+                    Turn90Left();
+                    sleep(50);
+                    Forward(65,.4);
+
+
+
+                    break;
+                case RIGHT: //top
+                    telemetry.addLine("Position Detected: RIGHT");
+                    telemetry.update();
+
+                    earlyActions();
+                    Backward(12,.35);
+                    sleep(100);
+                    scoreTop();
+                    Forward(12,.5);
+                    sleep(50);
+                    Turn90Left();
+                    sleep(50);
+                    Forward(65,.4);
+
+
+
+                    break;
+                default:
+                    strafeRight(20);
+                    telemetry.addLine("None");
+                    telemetry.update();
+                    break;
+
+
+
             }
+            sleep(100000000);
+        }
         webcam.stopStreaming();
     }
-    
+
     void earlyActions(){
         dumpster.setPosition(.2);
-        Backward(9);
+        sleep(wait * 1000);
+        Backward(6,.3);
+        sleep(100);
+        Turn90Left();
+        sleep(100);
+        Backward(12,.6);
         sleep(100);
         Turn90Right();
-         sleep(100);
-        Backward(35);
-        sleep(100);
-        strafeLeft(3);
-        sleep(100);
-        duck();
-        sleep(100);
-        Forward(5);
-        sleep(100);
-        strafeRight(29);
-        sleep(100);
-        Backward(10);
-        sleep(100);
-        Forward(15);
-        sleep(100);
-        Turn180();
         sleep(100);
     }
-    
+
     void Turn45Right() {
         leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
@@ -261,6 +269,42 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
+
+    void Turn90Left() {
+        leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+
+        leftFront.setTargetPosition(-660);
+        leftRear.setTargetPosition(-660);
+        rightFront.setTargetPosition(660);
+        rightRear.setTargetPosition(660);
+        leftFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        leftFront.setPower(-.3);
+        leftRear.setPower(-.3);
+        rightFront.setPower(.3);
+        rightRear.setPower(.3);
+        while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
+            sleep(0);
+        }
+        leftFront.setPower(0);
+        leftRear.setPower(0);
+        rightFront.setPower(0);
+        rightRear.setPower(0);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
     void Turn180() {
         leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
@@ -297,7 +341,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
     }
 
 
-    void Forward (int distance) {
+    void Forward (int distance, double power) {
         //int ticksToDrive = (int) Math.floor() ;
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -312,10 +356,10 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
-        leftFront.setPower(.35);
-        leftRear.setPower(.35);
-        rightFront.setPower(.35);
-        rightRear.setPower(.35);
+        leftFront.setPower(power);
+        leftRear.setPower(power);
+        rightFront.setPower(power);
+        rightRear.setPower(power);
         while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
             sleep(0);
         }
@@ -333,7 +377,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
-    void Backward (int distance) {
+    void Backward (int distance, double power) {
         leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
@@ -347,10 +391,10 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
-        leftFront.setPower(-.35);
-        leftRear.setPower(-.35);
-        rightFront.setPower(-.35);
-        rightRear.setPower(-.35);
+        leftFront.setPower(-power);
+        leftRear.setPower(-power);
+        rightFront.setPower(-power);
+        rightRear.setPower(-power);
         while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
             sleep(0);
         }
@@ -465,7 +509,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         spool.setPower(0);
         spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
-    
+
     void scoreMid() {
         spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
@@ -478,19 +522,19 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         }
         spool.setPower(0);
         spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        
+
         dumpster.setPosition(.5);
         sleep(400);
-        Backward(19);
+        Backward(13,.3);
         dumpster.setPosition(.64);
         sleep(2500);
         dumpster.setPosition(.5);
         sleep(400);
-        Forward(35);
+        Forward(30, .5);
         sleep(100);
         dumpster.setPosition(.2);
-        sleep(500);
-        
+        sleep(350);
+
         spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         spool.setTargetPosition(-700);
         spool.setMode(DcMotor.RunMode. RUN_TO_POSITION);
@@ -501,7 +545,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         spool.setPower(0);
         spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
-    
+
     void scoreLow() {
         spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
@@ -535,5 +579,5 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         sleep(3500);
         duckW.setPower(0);
     }
-    
+
 }

@@ -28,7 +28,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 //@Disabled //Comment out to run
-@Autonomous(name = "Red Detection and Duck", group = "Auto")
+@Autonomous(name = "Red Duck and Park", group = "Auto")
 public class DetectionDuckAutoRed extends LinearOpMode {
 
     OpenCvWebcam webcam;
@@ -118,9 +118,9 @@ public class DetectionDuckAutoRed extends LinearOpMode {
                     telemetry.update();
 
                     earlyActions();
-                    Backward(18,.3);
+                    Backward(17,.3);
                     sleep(100);
-                    scoreTop();
+                    scoreLow();
                     Forward(30,.5);
                     sleep(100);
                     strafeLeft(9);
@@ -148,10 +148,10 @@ public class DetectionDuckAutoRed extends LinearOpMode {
                     telemetry.update();
 
                     earlyActions();
-                    Backward(17,.3);
+                    Backward(18,.3);
                     sleep(100);
-                    scoreLow();
-                    Forward(34,.5);
+                    scoreTop();
+                    Forward(30,.5);
                     sleep(100);
                     strafeLeft(9);
                     sleep(100);
