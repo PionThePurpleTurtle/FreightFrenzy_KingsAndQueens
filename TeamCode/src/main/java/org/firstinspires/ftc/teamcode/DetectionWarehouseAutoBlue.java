@@ -39,6 +39,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
     DcMotor leftFront, rightFront, leftRear, rightRear;
     DcMotor duckW, harvester, spool;
     Servo dumpster;
+    int wait;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -98,15 +99,23 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
             leftPer = detector.leftPer;
             middlePer = detector.middlePer;
             rightPer = detector.rightPer;
-            telemetry.addData("Percent left",leftPer);
-            telemetry.addData("Percent middle",middlePer);
-            telemetry.addData("Percent right",rightPer);
+            telemetry.addData("Seconds of Delay:", wait);
+//            telemetry.addData("Percent left",leftPer);
+//            telemetry.addData("Percent middle",middlePer);
+//            telemetry.addData("Percent right",rightPer);
             telemetry.addData("Position", position);
-            telemetry.addData("time", getRuntime());
-            telemetry.addData("Frame Count", webcam.getFrameCount());
-            telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
-            telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
+//            telemetry.addData("time", getRuntime());
+//            telemetry.addData("Frame Count", webcam.getFrameCount());
+//            telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
+//            telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
             telemetry.update();
+
+            if (gamepad2.a){
+                wait++;
+                if(wait > 20){
+                    wait = 0;
+                }
+            }
         }
 
         waitForStart();
@@ -118,14 +127,13 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
                         telemetry.update();
                         
                         earlyActions();
-                        Backward(17);
+                        Backward(13,.35);
                         sleep(100);
                         scoreLow();
-                        Forward(34);
-                        sleep(100);
-                        strafeRight(9);
-                        sleep(100);
-                        Forward(4);
+                        Forward(12,.5);
+                        Turn90Right();
+                        Forward(65,.4);
+
                         
                         break;
                     case MIDDLE: //mid
@@ -134,24 +142,28 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
                         
                         earlyActions();
                         scoreMid();
-                        strafeRight(9);
-                        sleep(100);
-                        Forward(4);
+                        Forward(12,.5);
+                        Turn90Right();
+                        Forward(65,.4);
+
+
                         
                         break;
                     case RIGHT: //top
                         telemetry.addLine("Position Detected: RIGHT");
                         telemetry.update();
-                        
+
                         earlyActions();
-                        Backward(18);
+                        Backward(12,.35);
                         sleep(100);
                         scoreTop();
-                        Forward(34);
-                        sleep(100);
-                        strafeRight(9);
-                        sleep(100);
-                        Forward(4);
+                        Forward(12,.5);
+                        sleep(50);
+                        Turn90Right();
+                        sleep(50);
+                        Forward(65,.4);
+
+
                         
                         break;
                     default:
@@ -170,9 +182,15 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
     
     void earlyActions(){
         dumpster.setPosition(.2);
-        Backward(9);
+        sleep(wait * 1000);
+        Backward(6,.3);
         sleep(100);
-        
+        Turn90Right();
+        sleep(100);
+        Backward(12,.6);
+        sleep(100);
+        Turn90Left();
+        sleep(100);
     }
     
     void Turn45Right() {
@@ -244,6 +262,42 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
+
+    void Turn90Left() {
+        leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
+
+        leftFront.setTargetPosition(-660);
+        leftRear.setTargetPosition(-660);
+        rightFront.setTargetPosition(660);
+        rightRear.setTargetPosition(660);
+        leftFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
+        leftFront.setPower(-.3);
+        leftRear.setPower(-.3);
+        rightFront.setPower(.3);
+        rightRear.setPower(.3);
+        while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
+            sleep(0);
+        }
+        leftFront.setPower(0);
+        leftRear.setPower(0);
+        rightFront.setPower(0);
+        rightRear.setPower(0);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
     void Turn180() {
         leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
@@ -280,7 +334,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
     }
 
 
-    void Forward (int distance) {
+    void Forward (int distance, double power) {
         //int ticksToDrive = (int) Math.floor() ;
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -295,10 +349,10 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
         leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
-        leftFront.setPower(.35);
-        leftRear.setPower(.35);
-        rightFront.setPower(.35);
-        rightRear.setPower(.35);
+        leftFront.setPower(power);
+        leftRear.setPower(power);
+        rightFront.setPower(power);
+        rightRear.setPower(power);
         while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
             sleep(0);
         }
@@ -316,7 +370,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
-    void Backward (int distance) {
+    void Backward (int distance, double power) {
         leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
@@ -330,10 +384,10 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
         leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
-        leftFront.setPower(-.35);
-        leftRear.setPower(-.35);
-        rightFront.setPower(-.35);
-        rightRear.setPower(-.35);
+        leftFront.setPower(-power);
+        leftRear.setPower(-power);
+        rightFront.setPower(-power);
+        rightRear.setPower(-power);
         while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
             sleep(0);
         }
@@ -448,7 +502,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
         spool.setPower(0);
         spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
-    
+
     void scoreMid() {
         spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
@@ -461,19 +515,19 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
         }
         spool.setPower(0);
         spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        
+
         dumpster.setPosition(.5);
         sleep(400);
-        Backward(19);
+        Backward(13,.3);
         dumpster.setPosition(.64);
         sleep(2500);
         dumpster.setPosition(.5);
         sleep(400);
-        Forward(35);
+        Forward(30, .5);
         sleep(100);
         dumpster.setPosition(.2);
-        sleep(500);
-        
+        sleep(350);
+
         spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         spool.setTargetPosition(-700);
         spool.setMode(DcMotor.RunMode. RUN_TO_POSITION);
@@ -484,7 +538,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
         spool.setPower(0);
         spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
-    
+
     void scoreLow() {
         spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
@@ -518,5 +572,5 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
         sleep(3500);
         duckW.setPower(0);
     }
-    
+
 }
