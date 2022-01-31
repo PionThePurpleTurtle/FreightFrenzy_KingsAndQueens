@@ -153,9 +153,9 @@ public class LeftStick extends OpMode {
         spool.setPower(-gamepad2.left_stick_y);
 
         if (gamepad2.dpad_left) {
-            duckW.setPower(.53);
+            duckW.setPower(.56);
         } else if (gamepad2.dpad_right) {
-            duckW.setPower(-.53);
+            duckW.setPower(-.56);
         } else {
             duckW.setPower(0);
         }
