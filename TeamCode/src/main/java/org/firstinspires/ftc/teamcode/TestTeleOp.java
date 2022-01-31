@@ -96,7 +96,7 @@ public class TestTeleOp extends OpMode {
 
         switch (liftState){
             case LIFT_START:
-                if (gamepad2.a){
+                if (gamepad2.x){
                     spool.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     spool.setTargetPosition(LIFT_HIGH);
                     spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -139,19 +139,19 @@ public class TestTeleOp extends OpMode {
         
         switch (dumpState){
             case IDLE:
-                if (gamepad2.x) {
+                if (gamepad2.a) {
                     dumpster.setPosition(DUMP_IDLE);
                     dumpState = dumpState.MID;
                 }
                 break;
             case MID:
-                if (gamepad2.x) {
+                if (gamepad2.a) {
                     dumpster.setPosition(.37);
                     dumpState = dumpState.DUMP;
                 }
                 break;
             case DUMP:
-                if (gamepad2.x) {
+                if (gamepad2.a) {
                     dumpster.setPosition(DUMP_DEPOSIT);
                     dumpState = dumpState.IDLE;
                 }
