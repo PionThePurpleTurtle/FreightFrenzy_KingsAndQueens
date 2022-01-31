@@ -151,7 +151,7 @@ public class TestBlueAuto extends LinearOpMode {
                     Backward(18,.3);
                     sleep(100);
                     scoreTop();
-                    Forward(30,.5);
+                    Forward(31,.5);
                     sleep(100);
                     strafeRight(9);
                     sleep(100);
