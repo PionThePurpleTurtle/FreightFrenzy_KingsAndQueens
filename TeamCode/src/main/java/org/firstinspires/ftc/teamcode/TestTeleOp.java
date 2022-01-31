@@ -24,8 +24,16 @@ public class TestTeleOp extends OpMode {
         LIFT_DUMP,
         LIFT_RETRACT
     };
+    
+    public enum DumpState{
+        IDLE,
+        MID,
+        DUMP
+    };
+    
     LiftState liftState = LiftState.LIFT_START;
-
+    DumpState dumpState = DumpState.IDLE;
+    
     DcMotor leftFront, rightFront, leftRear, rightRear;
     DcMotor duckW, harvester, spool;
     Servo dumpster;
@@ -93,6 +101,7 @@ public class TestTeleOp extends OpMode {
                     spool.setTargetPosition(LIFT_HIGH);
                     spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     spool.setPower(1);
+                    dumpster.setPosition(.37);
                     liftState = LiftState.LIFT_EXTEND;
                 }
                 break;
@@ -126,6 +135,27 @@ public class TestTeleOp extends OpMode {
 
         if (gamepad1.y && liftState != liftState.LIFT_START) {
             liftState = liftState.LIFT_START;
+        }
+        
+        switch (dumpState){
+            case IDLE:
+                if (gamepad2.x) {
+                    dumpster.setPosition(DUMP_IDLE);
+                    dumpState = dumpState.MID;
+                }
+                break;
+            case MID:
+                if (gamepad2.x) {
+                    dumpster.setPosition(.37);
+                    dumpState = dumpState.DUMP;
+                }
+                break;
+            case DUMP:
+                if (gamepad2.x) {
+                    dumpster.setPosition(DUMP_DEPOSIT);
+                    dumpState = dumpState.IDLE;
+                }
+                break;
         }
 
         double drive;
