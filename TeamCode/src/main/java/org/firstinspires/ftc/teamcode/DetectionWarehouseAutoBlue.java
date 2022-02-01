@@ -133,7 +133,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
                         Backward(13,.35);
                         sleep(100);
                         scoreLow();
-                        Forward(12,.5);
+                        Forward(7,.5);
                         sleep(50);
                         Turn90Right();
                         sleep(50);
@@ -147,7 +147,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
                         
                         earlyActions();
                         scoreMid();
-                        Forward(12,.5);
+                        Forward(6,.5);
                         sleep(50);
                         Turn90Right();
                         sleep(50);
@@ -164,7 +164,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
                         Backward(12,.35);
                         sleep(100);
                         scoreTop();
-                        Forward(12,.5);
+                        Forward(6,.5);
                         sleep(50);
                         Turn90Right();
                         sleep(50);
