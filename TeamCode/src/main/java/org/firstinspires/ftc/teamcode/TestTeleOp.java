@@ -118,7 +118,7 @@ public class TestTeleOp extends OpMode {
                     dumpster.setPosition(DUMP_IDLE);
                     spool.setTargetPosition(LIFT_LOW);
                     spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    spool.setPower(-.75);
+                    spool.setPower(-1);
                     liftState = liftState.LIFT_RETRACT;
                 }
                 break;
