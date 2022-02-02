@@ -115,9 +115,11 @@ public class DetectionWarehouseAutoRed extends LinearOpMode {
                 if(wait > 20){
                     wait = 0;
                 }
+                sleep(200);
             }
             else if (gamepad2.dpad_down){
                 wait--;
+                sleep(200);
             }
         }
 
@@ -130,14 +132,14 @@ public class DetectionWarehouseAutoRed extends LinearOpMode {
                     telemetry.update();
 
                     earlyActions();
-                    Backward(13,.35);
+                    Backward(12,.35);
                     sleep(100);
                     scoreLow();
-                    Forward(7,.5);
+                    Forward(2,.5);
                     sleep(50);
                     Turn90Left();
                     sleep(50);
-                    Forward(65,.4);
+                    Forward(80,.4);
 
 
                     break;
@@ -147,11 +149,11 @@ public class DetectionWarehouseAutoRed extends LinearOpMode {
 
                     earlyActions();
                     scoreMid();
-                    Forward(6,.5);
+                    Forward(2,.5);
                     sleep(50);
                     Turn90Left();
                     sleep(50);
-                    Forward(65,.4);
+                    Forward(80,.4);
 
 
 
@@ -161,14 +163,14 @@ public class DetectionWarehouseAutoRed extends LinearOpMode {
                     telemetry.update();
 
                     earlyActions();
-                    Backward(12,.35);
+                    Backward(11,.35);
                     sleep(100);
                     scoreTop();
-                    Forward(6,.5);
+                    Forward(2,.5);
                     sleep(50);
                     Turn90Left();
                     sleep(50);
-                    Forward(65,.4);
+                    Forward(80,.4);
 
 
 
@@ -190,11 +192,14 @@ public class DetectionWarehouseAutoRed extends LinearOpMode {
     void earlyActions(){
         dumpster.setPosition(.2);
         sleep(wait * 1000);
+        strafeRight(2);
+        sleep(50);
+        Forward(2, .2);
         Backward(6,.3);
         sleep(100);
         Turn90Left();
         sleep(100);
-        Backward(12,.6);
+        Backward(22,.4);
         sleep(100);
         Turn90Right();
         sleep(100);
@@ -550,7 +555,7 @@ public class DetectionWarehouseAutoRed extends LinearOpMode {
         spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
 
-        spool.setTargetPosition(513);
+        spool.setTargetPosition(475);
         spool.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         spool.setPower(1);
         while (opModeIsActive()&& spool.isBusy()) {
@@ -558,13 +563,13 @@ public class DetectionWarehouseAutoRed extends LinearOpMode {
         }
         spool.setPower(0);
         spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        dumpster.setPosition(.64);
+        dumpster.setPosition(.65);
         sleep(2500);
         dumpster.setPosition(.2);
         sleep(500);
         spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
 
-        spool.setTargetPosition(-513);
+        spool.setTargetPosition(-475);
         spool.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         spool.setPower(-1);
         while (opModeIsActive()&& spool.isBusy()) {

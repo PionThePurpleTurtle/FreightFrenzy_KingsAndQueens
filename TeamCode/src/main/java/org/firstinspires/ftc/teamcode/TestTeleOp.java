@@ -48,12 +48,14 @@ public class TestTeleOp extends OpMode {
     // int block = 1000;
     // int distance = block * padPressed;
     ElapsedTime liftTimer = new ElapsedTime();
+    ElapsedTime dumpTimer = new ElapsedTime();
 
     final double DUMP_IDLE = .2; // the idle position for the dump servo
     final double DUMP_DEPOSIT = .635; // the dumping position for the dump servo
 
     // the amount of time the dump servo takes to activate in seconds
     final double DUMP_TIME = .75;
+
 
     final int LIFT_LOW = 0; // the low encoder position for the lift
     final int LIFT_HIGH = 1430;
@@ -96,7 +98,7 @@ public class TestTeleOp extends OpMode {
 
 //        switch (liftState){
 //            case LIFT_START:
-//                if (gamepad2.x){
+//                if (gamepad2.b){
 //                    spool.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //                    spool.setTargetPosition(LIFT_HIGH);
 //                    spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -139,21 +141,24 @@ public class TestTeleOp extends OpMode {
         
         switch (dumpState){
             case IDLE:
-                if (gamepad2.a) {
+                if (gamepad2.a && dumpTimer.seconds() >= .15) {
                     dumpster.setPosition(DUMP_IDLE);
                     dumpState = dumpState.MID;
+                    dumpTimer.reset();
                 }
                 break;
             case MID:
-                if (gamepad2.a) {
+                if (gamepad2.a && dumpTimer.seconds() >= .15) {
                     dumpster.setPosition(.37);
                     dumpState = dumpState.DUMP;
+                    dumpTimer.reset();
                 }
                 break;
             case DUMP:
-                if (gamepad2.a) {
+                if (gamepad2.a && dumpTimer.seconds() >= .15) {
                     dumpster.setPosition(DUMP_DEPOSIT);
                     dumpState = dumpState.IDLE;
+                    dumpTimer.reset();
                 }
                 break;
         }
@@ -213,9 +218,11 @@ public class TestTeleOp extends OpMode {
 
         if (gamepad2.dpad_left) {
             duckW.setPower(.53);
-        } else if (gamepad2.dpad_right) {
+        }
+        else if (gamepad2.dpad_right) {
             duckW.setPower(-.53);
-        } else {
+        }
+        else {
             duckW.setPower(0);
         }
 
@@ -236,13 +243,17 @@ public class TestTeleOp extends OpMode {
 
         if (inActive) {
             harvester.setPower(-.62);
-        } else if (gamepad2.right_bumper) {
+        }
+        else if (gamepad2.right_bumper) {
             harvester.setPower(.2);
-        } else if (gamepad2.y) {
+        }
+        else if (gamepad2.y) {
             harvester.setPower(-.4);
-        } else if (gamepad2.x) {
+        }
+        else if (gamepad2.x) {
             harvester.setPower(-1);
-        } else {
+        }
+        else {
             harvester.setPower(0);
         }
 

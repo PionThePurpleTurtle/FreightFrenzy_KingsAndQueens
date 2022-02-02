@@ -39,7 +39,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
     DcMotor leftFront, rightFront, leftRear, rightRear;
     DcMotor duckW, harvester, spool;
     Servo dumpster;
-    int wait;
+    int wait = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -119,7 +119,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
             }
             else if (gamepad2.dpad_down){
                 wait--;
-                sleep(500);
+                sleep(200);
             }
         }
 
@@ -139,7 +139,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
                         sleep(50);
                         Turn90Right();
                         sleep(50);
-                        Forward(87,.4);
+                        Forward(80,.4);
 
                         
                         break;
@@ -153,7 +153,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
                         sleep(50);
                         Turn90Right();
                         sleep(50);
-                        Forward(87,.4);
+                        Forward(80,.4);
 
 
                         
@@ -170,7 +170,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
                         sleep(50);
                         Turn90Right();
                         sleep(50);
-                        Forward(87,.4);
+                        Forward(80,.4);
 
 
                         
@@ -193,12 +193,13 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
         dumpster.setPosition(.2);
         sleep(wait * 1000);
         strafeLeft(2);
+        sleep(50);
         Forward(2, .2);
         Backward(6,.3);
         sleep(100);
         Turn90Right();
         sleep(100);
-        Backward(22,.6);
+        Backward(22,.4);
         sleep(100);
         Turn90Left();
         sleep(100);
@@ -530,7 +531,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
         dumpster.setPosition(.5);
         sleep(400);
         Backward(16,.3);
-        dumpster.setPosition(.64);
+        dumpster.setPosition(.65);
         sleep(2500);
         dumpster.setPosition(.5);
         sleep(400);
@@ -554,7 +555,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
         spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
 
-        spool.setTargetPosition(513);
+        spool.setTargetPosition(475);
         spool.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         spool.setPower(1);
         while (opModeIsActive()&& spool.isBusy()) {
@@ -568,7 +569,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
         sleep(500);
         spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
 
-        spool.setTargetPosition(-513);
+        spool.setTargetPosition(-475);
         spool.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         spool.setPower(-1);
         while (opModeIsActive()&& spool.isBusy()) {

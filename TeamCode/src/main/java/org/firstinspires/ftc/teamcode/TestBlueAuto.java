@@ -27,7 +27,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-//@Disabled //Comment out to run
+@Disabled //Comment out to run
 @Autonomous(name = "Test Blue Auto", group = "Auto")
 public class TestBlueAuto extends LinearOpMode {
 
@@ -180,8 +180,8 @@ public class TestBlueAuto extends LinearOpMode {
         sleep(100);
         Turn90Right();
         sleep(100);
-        Backward(30,.6);
-        Backward(5, .2);
+        Backward(25,.6);
+        Backward(10, .2);
         sleep(100);
         strafeLeft(3);
         sleep(100);
