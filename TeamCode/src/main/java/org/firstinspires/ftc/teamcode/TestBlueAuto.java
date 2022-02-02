@@ -148,10 +148,10 @@ public class TestBlueAuto extends LinearOpMode {
                     telemetry.update();
 
                     earlyActions();
-                    Backward(18,.3);
+                    Backward(16,.3);
                     sleep(100);
                     scoreTop();
-                    Forward(31,.5);
+                    Forward(29,.5);
                     sleep(100);
                     strafeRight(9);
                     sleep(100);

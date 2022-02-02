@@ -115,9 +115,11 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
                 if(wait > 20){
                     wait = 0;
                 }
+                sleep(200);
             }
             else if (gamepad2.dpad_down){
                 wait--;
+                sleep(500);
             }
         }
 
@@ -130,14 +132,14 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
                         telemetry.update();
                         
                         earlyActions();
-                        Backward(13,.35);
+                        Backward(12,.35);
                         sleep(100);
                         scoreLow();
-                        Forward(7,.5);
+                        Forward(2,.5);
                         sleep(50);
                         Turn90Right();
                         sleep(50);
-                        Forward(65,.4);
+                        Forward(87,.4);
 
                         
                         break;
@@ -147,11 +149,11 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
                         
                         earlyActions();
                         scoreMid();
-                        Forward(6,.5);
+                        Forward(2,.5);
                         sleep(50);
                         Turn90Right();
                         sleep(50);
-                        Forward(65,.4);
+                        Forward(87,.4);
 
 
                         
@@ -161,14 +163,14 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
                         telemetry.update();
 
                         earlyActions();
-                        Backward(12,.35);
+                        Backward(11,.35);
                         sleep(100);
                         scoreTop();
-                        Forward(6,.5);
+                        Forward(2,.5);
                         sleep(50);
                         Turn90Right();
                         sleep(50);
-                        Forward(65,.4);
+                        Forward(87,.4);
 
 
                         
@@ -190,11 +192,13 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
     void earlyActions(){
         dumpster.setPosition(.2);
         sleep(wait * 1000);
+        strafeLeft(2);
+        Forward(2, .2);
         Backward(6,.3);
         sleep(100);
         Turn90Right();
         sleep(100);
-        Backward(12,.6);
+        Backward(22,.6);
         sleep(100);
         Turn90Left();
         sleep(100);
@@ -525,12 +529,12 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
 
         dumpster.setPosition(.5);
         sleep(400);
-        Backward(13,.3);
+        Backward(16,.3);
         dumpster.setPosition(.64);
         sleep(2500);
         dumpster.setPosition(.5);
         sleep(400);
-        Forward(30, .5);
+        Forward(2, .5);
         sleep(100);
         dumpster.setPosition(.2);
         sleep(350);

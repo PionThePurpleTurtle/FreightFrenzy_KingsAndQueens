@@ -94,48 +94,48 @@ public class TestTeleOp extends OpMode {
     @Override
     public void loop() {
 
-        switch (liftState){
-            case LIFT_START:
-                if (gamepad2.x){
-                    spool.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    spool.setTargetPosition(LIFT_HIGH);
-                    spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    spool.setPower(1);
-                    dumpster.setPosition(.37);
-                    liftState = LiftState.LIFT_EXTEND;
-                }
-                break;
-            case LIFT_EXTEND:
-                if (Math.abs(spool.getCurrentPosition() - LIFT_HIGH) < 10) {
-                    spool.setPower(0);
-                    dumpster.setPosition(DUMP_DEPOSIT);
-                    liftTimer.reset();
-                    liftState = liftState.LIFT_DUMP;
-                }
-                break;
-            case LIFT_DUMP:
-                if (liftTimer.seconds() >= DUMP_TIME) {
-                    dumpster.setPosition(DUMP_IDLE);
-                    spool.setTargetPosition(LIFT_LOW);
-                    spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    spool.setPower(-1);
-                    liftState = liftState.LIFT_RETRACT;
-                }
-                break;
-            case LIFT_RETRACT:
-                if (Math.abs(spool.getCurrentPosition() - LIFT_LOW) < 10) {
-                    spool.setPower(0);
-                    liftState = liftState.LIFT_START;
-                }
-                break;
-
-
-
-        }
-
-        if (gamepad1.y && liftState != liftState.LIFT_START) {
-            liftState = liftState.LIFT_START;
-        }
+//        switch (liftState){
+//            case LIFT_START:
+//                if (gamepad2.x){
+//                    spool.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//                    spool.setTargetPosition(LIFT_HIGH);
+//                    spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                    spool.setPower(1);
+//                    dumpster.setPosition(.37);
+//                    liftState = LiftState.LIFT_EXTEND;
+//                }
+//                break;
+//            case LIFT_EXTEND:
+//                if (Math.abs(spool.getCurrentPosition() - LIFT_HIGH) < 10) {
+//                    spool.setPower(0);
+//                    dumpster.setPosition(DUMP_DEPOSIT);
+//                    liftTimer.reset();
+//                    liftState = liftState.LIFT_DUMP;
+//                }
+//                break;
+//            case LIFT_DUMP:
+//                if (liftTimer.seconds() >= DUMP_TIME) {
+//                    dumpster.setPosition(DUMP_IDLE);
+//                    spool.setTargetPosition(LIFT_LOW);
+//                    spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                    spool.setPower(-1);
+//                    liftState = liftState.LIFT_RETRACT;
+//                }
+//                break;
+//            case LIFT_RETRACT:
+//                if (Math.abs(spool.getCurrentPosition() - LIFT_LOW) < 10) {
+//                    spool.setPower(0);
+//                    liftState = liftState.LIFT_START;
+//                }
+//                break;
+//
+//
+//
+//        }
+//
+//        if (gamepad1.y && liftState != liftState.LIFT_START) {
+//            liftState = liftState.LIFT_START;
+//        }
         
         switch (dumpState){
             case IDLE:
