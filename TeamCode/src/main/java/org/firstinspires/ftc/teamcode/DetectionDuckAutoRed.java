@@ -123,11 +123,11 @@ public class DetectionDuckAutoRed extends LinearOpMode {
                     scoreLow();
                     Forward(30,.5);
                     sleep(100);
-                    strafeLeft(9);
+                    strafeLeft(10);
                     sleep(100);
                     Turn180();
                     sleep(100);
-                    Backward(4,.2);
+                    Backward(6,.2);
 
                     break;
                 case MIDDLE: //mid
@@ -136,11 +136,11 @@ public class DetectionDuckAutoRed extends LinearOpMode {
 
                     earlyActions();
                     scoreMid();
-                    strafeLeft(9);
+                    strafeLeft(10);
                     sleep(100);
                     Turn180();
                     sleep(100);
-                    Backward(4,.2);
+                    Backward(6,.2);
 
                     break;
                 case RIGHT: //low
@@ -148,16 +148,16 @@ public class DetectionDuckAutoRed extends LinearOpMode {
                     telemetry.update();
 
                     earlyActions();
-                    Backward(18,.3);
+                    Backward(15,.3);
                     sleep(100);
                     scoreTop();
-                    Forward(30,.5);
+                    Forward(26,.5);
                     sleep(100);
-                    strafeLeft(9);
+                    strafeLeft(10);
                     sleep(100);
                     Turn180();
                     sleep(100);
-                    Backward(4,.2);
+                    Backward(10,.2);
 
                     break;
                 default:
@@ -176,21 +176,21 @@ public class DetectionDuckAutoRed extends LinearOpMode {
 
     void earlyActions(){
         dumpster.setPosition(.2);
-        Backward(11, .3);
+        Backward(12, .3);
         sleep(100);
         Turn90Left();
         sleep(100);
-        Backward(30,.5);
+        Backward(27,.5);
         sleep(100);
         Turn90Left();
         sleep(100);
-        strafeLeft(8);
+        strafeLeft(12);
         sleep(100);
         Backward(8, .2);
         sleep(100);
         duck();
         sleep(100);
-        strafeRight(6);
+        strafeRight(4);
         sleep(100);
         Forward(29,.6);
         sleep(100);
@@ -574,7 +574,7 @@ public class DetectionDuckAutoRed extends LinearOpMode {
     }
 
     void duck(){
-        duckW.setPower(.5);
+        duckW.setPower(-.5);
         sleep(3500);
         duckW.setPower(0);
     }

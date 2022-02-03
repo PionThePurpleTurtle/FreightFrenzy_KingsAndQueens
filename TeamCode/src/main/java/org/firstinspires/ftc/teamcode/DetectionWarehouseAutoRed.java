@@ -132,10 +132,10 @@ public class DetectionWarehouseAutoRed extends LinearOpMode {
                     telemetry.update();
 
                     earlyActions();
-                    Backward(12,.35);
+                    Backward(14,.3);
                     sleep(100);
                     scoreLow();
-                    Forward(2,.5);
+                    Forward(4,.5);
                     sleep(50);
                     Turn90Left();
                     sleep(50);
@@ -163,10 +163,10 @@ public class DetectionWarehouseAutoRed extends LinearOpMode {
                     telemetry.update();
 
                     earlyActions();
-                    Backward(11,.35);
+                    Backward(13,.35);
                     sleep(100);
                     scoreTop();
-                    Forward(2,.5);
+                    Forward(3,.5);
                     sleep(50);
                     Turn90Left();
                     sleep(50);
@@ -530,12 +530,12 @@ public class DetectionWarehouseAutoRed extends LinearOpMode {
 
         dumpster.setPosition(.5);
         sleep(400);
-        Backward(13,.3);
+        Backward(15,.3);
         dumpster.setPosition(.64);
         sleep(2500);
         dumpster.setPosition(.5);
         sleep(400);
-        Forward(30, .5);
+        Forward(2, .5);
         sleep(100);
         dumpster.setPosition(.2);
         sleep(350);
@@ -563,7 +563,7 @@ public class DetectionWarehouseAutoRed extends LinearOpMode {
         }
         spool.setPower(0);
         spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        dumpster.setPosition(.65);
+        dumpster.setPosition(.635);
         sleep(2500);
         dumpster.setPosition(.2);
         sleep(500);
@@ -580,7 +580,7 @@ public class DetectionWarehouseAutoRed extends LinearOpMode {
     }
 
     void duck(){
-        duckW.setPower(.5);
+        duckW.setPower(-.5);
         sleep(3500);
         duckW.setPower(0);
     }
