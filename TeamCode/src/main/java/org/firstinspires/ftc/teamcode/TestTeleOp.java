@@ -20,10 +20,10 @@ public class TestTeleOp extends OpMode {
 
     public enum LiftState{
         LIFT_START,
+        LIFT_MID,
         LIFT_EXTEND,
         LIFT_DUMP,
-        LIFT_RETRACT,
-        OVERRIDE
+        LIFT_RETRACT
     };
 
     public enum DumpState{
@@ -240,10 +240,13 @@ public class TestTeleOp extends OpMode {
                     spool.setTargetPosition(LIFT_HIGH);
                     spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     spool.setPower(1);
-                    if (Math.abs(spool.getCurrentPosition()) > 500) {
+                    liftState = LiftState.LIFT_MID;
+                }
+                break;
+            case: LIFT_MID:
+                if (Math.abs(spool.getCurrentPosition()) > 500) {
                         dumpster.setPosition(.43);
-                    }
-                    liftState = LiftState.LIFT_EXTEND;
+                    liftState = liftState.LIFT_EXTEND;
                 }
                 break;
             case LIFT_EXTEND:
