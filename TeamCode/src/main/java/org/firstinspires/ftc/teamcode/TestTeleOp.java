@@ -60,7 +60,7 @@ public class TestTeleOp extends OpMode {
 
 
     final int LIFT_LOW = 0; // the low encoder position for the lift
-    final int LIFT_HIGH = 1430;
+    final int LIFT_HIGH = 1425;
 
 
 
@@ -91,7 +91,6 @@ public class TestTeleOp extends OpMode {
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         liftTimer.reset();
     }
@@ -106,12 +105,14 @@ public class TestTeleOp extends OpMode {
                     spool.setTargetPosition(LIFT_HIGH);
                     spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     spool.setPower(1);
-                    //dumpster.setPosition(.37);
+                    if (Math.abs(spool.getCurrentPosition()) > 500) {
+                        dumpster.setPosition(.43);
+                    }
                     liftState = LiftState.LIFT_EXTEND;
                 }
                 break;
             case LIFT_EXTEND:
-                if (Math.abs(spool.getCurrentPosition() - LIFT_HIGH) < 10) {
+                if (Math.abs(spool.getCurrentPosition() - LIFT_HIGH) < 15) {
                     spool.setPower(0);
                     dumpster.setPosition(DUMP_DEPOSIT);
                     liftTimer.reset();
@@ -121,7 +122,6 @@ public class TestTeleOp extends OpMode {
             case LIFT_DUMP:
                 if (liftTimer.seconds() >= DUMP_TIME) {
                     dumpster.setPosition(DUMP_IDLE);
-                    //spool.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     spool.setTargetPosition(0);
                     spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     spool.setPower(-1);
@@ -129,10 +129,11 @@ public class TestTeleOp extends OpMode {
                 }
                 break;
             case LIFT_RETRACT:
-                if (Math.abs(spool.getCurrentPosition() - LIFT_LOW) < 10) {
+                if (Math.abs(spool.getCurrentPosition() - LIFT_LOW) < 15) {
                     spool.setPower(0);
                     liftState = liftState.LIFT_START;
                 }
+                break;
 //            case OVERRIDE:
 //                spool.setPower(-gamepad2.left_stick_y);
 //                if (gamepad1.y && liftState != liftState.LIFT_START) {
@@ -260,9 +261,9 @@ public class TestTeleOp extends OpMode {
         else if (gamepad2.right_bumper) {
             harvester.setPower(.2);
         }
-//        else if (gamepad2.y) {
-//            harvester.setPower(-.4);
-//        }
+       else if (gamepad2.y) {
+           harvester.setPower(-.4);
+       }
         else if (gamepad2.x) {
             harvester.setPower(-1);
         }
