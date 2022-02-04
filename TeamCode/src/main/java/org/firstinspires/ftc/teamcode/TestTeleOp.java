@@ -100,6 +100,7 @@ public class TestTeleOp extends OpMode {
 
         if (gamepad2.left_stick_y != 0) {
             spool.setPower(-gamepad2.left_stick_y);
+            liftState = liftState.LIFT_START;
         }
         else {
             liftAuto();
