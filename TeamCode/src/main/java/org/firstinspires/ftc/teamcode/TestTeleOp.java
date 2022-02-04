@@ -22,7 +22,8 @@ public class TestTeleOp extends OpMode {
         LIFT_START,
         LIFT_EXTEND,
         LIFT_DUMP,
-        LIFT_RETRACT
+        LIFT_RETRACT,
+        OVERRIDE
     };
 
     public enum DumpState{
@@ -42,6 +43,7 @@ public class TestTeleOp extends OpMode {
     boolean grabIsActive = true;
     boolean inState = false;
     boolean inActive = false;
+    boolean override = false;
     // boolean capState = false;
     // boolean capActive = false;
     // int padPressed;
@@ -54,7 +56,7 @@ public class TestTeleOp extends OpMode {
     final double DUMP_DEPOSIT = .635; // the dumping position for the dump servo
 
     // the amount of time the dump servo takes to activate in seconds
-    final double DUMP_TIME = .75;
+    final double DUMP_TIME = 1.25;
 
 
     final int LIFT_LOW = 0; // the low encoder position for the lift
@@ -89,7 +91,7 @@ public class TestTeleOp extends OpMode {
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         liftTimer.reset();
     }
@@ -100,9 +102,9 @@ public class TestTeleOp extends OpMode {
         switch (liftState){
             case LIFT_START:
                 if (gamepad2.b){
-                    //spool.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    spool.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     spool.setTargetPosition(LIFT_HIGH);
-                    //spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     spool.setPower(1);
                     //dumpster.setPosition(.37);
                     liftState = LiftState.LIFT_EXTEND;
@@ -119,8 +121,8 @@ public class TestTeleOp extends OpMode {
             case LIFT_DUMP:
                 if (liftTimer.seconds() >= DUMP_TIME) {
                     dumpster.setPosition(DUMP_IDLE);
-                    spool.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    spool.setTargetPosition(-1430);
+                    //spool.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    spool.setTargetPosition(0);
                     spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     spool.setPower(-1);
                     liftState = liftState.LIFT_RETRACT;
@@ -131,15 +133,21 @@ public class TestTeleOp extends OpMode {
                     spool.setPower(0);
                     liftState = liftState.LIFT_START;
                 }
-                break;
+//            case OVERRIDE:
+//                spool.setPower(-gamepad2.left_stick_y);
+//                if (gamepad1.y && liftState != liftState.LIFT_START) {
+//                    liftState = liftState.LIFT_START;
+//                }
+//                break;
 
 
 
         }
-
-        if (gamepad1.y && liftState != liftState.LIFT_START) {
-            liftState = liftState.LIFT_START;
+        if (-gamepad2.left_stick_y > 0.1){
+            liftState = liftState.OVERRIDE;
         }
+
+
 
         switch (dumpState){
             case IDLE:
@@ -182,7 +190,7 @@ public class TestTeleOp extends OpMode {
 
         duckW.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -219,7 +227,7 @@ public class TestTeleOp extends OpMode {
         rightFront.setPower(driveInput - strafeInput - rotateInput);
         rightRear.setPower(driveInput + strafeInput - rotateInput);
 
-        spool.setPower(-gamepad2.left_stick_y);
+        //spool.setPower(-gamepad2.left_stick_y);
 
         if (gamepad2.dpad_left) {
             duckW.setPower(.53);
@@ -252,9 +260,9 @@ public class TestTeleOp extends OpMode {
         else if (gamepad2.right_bumper) {
             harvester.setPower(.2);
         }
-        else if (gamepad2.y) {
-            harvester.setPower(-.4);
-        }
+//        else if (gamepad2.y) {
+//            harvester.setPower(-.4);
+//        }
         else if (gamepad2.x) {
             harvester.setPower(-1);
         }
