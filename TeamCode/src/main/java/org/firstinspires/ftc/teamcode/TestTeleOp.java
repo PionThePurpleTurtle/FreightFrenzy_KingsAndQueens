@@ -98,11 +98,11 @@ public class TestTeleOp extends OpMode {
     @Override
     public void loop() {
 
-        if (gamepad2.b) {
-            liftAuto();
+        if (gamepad2.left_stick_y != 0) {
+            spool.setPower(-gamepad2.left_stick_y);
         }
         else {
-            spool.setPower(-gamepad2.left_stick_y);
+            liftAuto();
         }
 
         switch (dumpState){
