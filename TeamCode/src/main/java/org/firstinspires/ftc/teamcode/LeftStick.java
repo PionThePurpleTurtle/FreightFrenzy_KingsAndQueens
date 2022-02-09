@@ -17,7 +17,7 @@ public class LeftStick extends OpMode {
 
     DcMotor leftFront, rightFront, leftRear, rightRear;
     DcMotor duckW, harvester, spool;
-    Servo dumpster;
+    Servo dumpster, cap;
     // DcMotor rightScissor, leftScissor, leftIn, rightIn;
     // Servo scoreSlide, blockM, cap, grab2, StoneSnatch;
     // CRServo topSlide, tape;
@@ -54,7 +54,7 @@ public class LeftStick extends OpMode {
         //   rightIn = hardwareMap.dcMotor.get("rightIn");
         //   blockM = hardwareMap.servo.get("blockM");
         //   grab2 = hardwareMap.servo.get("grab2");
-        //   cap = hardwareMap.servo.get("cap");
+           cap = hardwareMap.servo.get("cap");
         //   StoneSnatch = hardwareMap.servo.get("StoneSnatch");
 
         rightRear.setDirection(DcMotor.Direction.REVERSE);
@@ -158,6 +158,19 @@ public class LeftStick extends OpMode {
             duckW.setPower(-.56);
         } else {
             duckW.setPower(0);
+        }
+
+        if (-gamepad2.right_stick_y < 0){
+            cap.setPosition(cap.getPosition() - .005);
+        }
+        else if (-gamepad2.right_stick_y > 0){
+            cap.setPosition(cap.getPosition() + .005);
+        }
+        else if (gamepad2.dpad_up){
+            cap.setPosition(0.6);
+        }
+        else if (gamepad2.dpad_down){
+            cap.setPosition(0);
         }
 
 

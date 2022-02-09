@@ -123,7 +123,7 @@ public class DetectionDuckAutoRed extends LinearOpMode {
                     scoreLow();
                     Forward(30,.5);
                     sleep(100);
-                    strafeLeft(10);
+                    strafeLeft(11);
                     sleep(100);
                     Turn180();
                     sleep(100);
@@ -136,7 +136,7 @@ public class DetectionDuckAutoRed extends LinearOpMode {
 
                     earlyActions();
                     scoreMid();
-                    strafeLeft(10);
+                    strafeLeft(11);
                     sleep(100);
                     Turn180();
                     sleep(100);
@@ -153,7 +153,7 @@ public class DetectionDuckAutoRed extends LinearOpMode {
                     scoreTop();
                     Forward(26,.5);
                     sleep(100);
-                    strafeLeft(10);
+                    strafeLeft(11);
                     sleep(100);
                     Turn180();
                     sleep(100);
@@ -192,7 +192,7 @@ public class DetectionDuckAutoRed extends LinearOpMode {
         sleep(100);
         strafeRight(4);
         sleep(100);
-        Forward(29,.6);
+        Forward(31,.6);
         sleep(100);
         Turn90Left();
         Forward(10,.2);

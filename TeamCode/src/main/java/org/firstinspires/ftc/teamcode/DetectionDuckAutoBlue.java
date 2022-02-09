@@ -127,7 +127,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
                     sleep(100);
                     Turn180();
                     sleep(100);
-                    Backward(4,.3);
+                    Backward(10,.3);
 
                     break;
                 case MIDDLE: //mid
@@ -140,7 +140,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
                     sleep(100);
                     Turn180();
                     sleep(100);
-                    Backward(4,.3);
+                    Backward(10,.3);
 
                     break;
                 case RIGHT: //top
@@ -157,7 +157,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
                     sleep(100);
                     Turn180();
                     sleep(100);
-                    Backward(4,.3);
+                    Backward(10,.3);
 
                     break;
                 default:
