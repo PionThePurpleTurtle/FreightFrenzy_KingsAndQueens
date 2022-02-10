@@ -148,7 +148,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
                     telemetry.update();
 
                     earlyActions();
-                    Backward(16,.3);
+                    Backward(14,.3);
                     sleep(100);
                     scoreTop();
                     Forward(29,.5);

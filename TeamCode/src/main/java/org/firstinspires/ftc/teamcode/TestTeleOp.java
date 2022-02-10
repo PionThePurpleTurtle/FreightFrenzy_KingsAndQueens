@@ -189,16 +189,16 @@ public class TestTeleOp extends OpMode {
         }
 
         if (-gamepad2.right_stick_y < 0){
-            cap.setPosition(cap.getPosition() - .005);
-        }
-        else if (-gamepad2.right_stick_y > 0){
             cap.setPosition(cap.getPosition() + .005);
         }
+        else if (-gamepad2.right_stick_y > 0){
+            cap.setPosition(cap.getPosition() - .005);
+        }
         else if (gamepad2.dpad_up){
-            cap.setPosition(0.6);
+            cap.setPosition(0.2);
         }
         else if (gamepad2.dpad_down){
-            cap.setPosition(0);
+            cap.setPosition(.7);
         }
 
 
@@ -207,16 +207,16 @@ public class TestTeleOp extends OpMode {
         }
 
         if (inActive) {
-            harvester.setPower(-.62);
+            harvester.setPower(-.525);
         }
         else if (gamepad2.right_bumper) {
             harvester.setPower(.2);
         }
        else if (gamepad2.y) {
-           harvester.setPower(-.4);
+           harvester.setPower(-.3);
        }
         else if (gamepad2.x) {
-            harvester.setPower(-1);
+            harvester.setPower(-.75);
         }
         else {
             harvester.setPower(0);
@@ -243,7 +243,7 @@ public class TestTeleOp extends OpMode {
                 }
                 break;
             case LIFT_START:
-                    spool.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                   // spool.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     spool.setTargetPosition(LIFT_HIGH);
                     spool.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     spool.setPower(1);
@@ -287,8 +287,8 @@ public class TestTeleOp extends OpMode {
 
         }
 
-        if (gamepad2.left_stick_y != 0 && liftState != LiftState.LIFT_START ){
-            liftState = LiftState.LIFT_START;
+        if (gamepad2.left_stick_y != 0 && liftState != LiftState.LIFT_READY ){
+            liftState = LiftState.LIFT_READY;
         }
     }
 }

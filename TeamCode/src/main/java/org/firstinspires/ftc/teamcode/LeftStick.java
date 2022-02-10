@@ -189,14 +189,18 @@ public class LeftStick extends OpMode {
         }
 
         if (inActive) {
-            harvester.setPower(-.62);
-        } else if (gamepad2.right_bumper) {
+            harvester.setPower(-.525);
+        }
+        else if (gamepad2.right_bumper) {
             harvester.setPower(.2);
-        } else if (gamepad2.y) {
-            harvester.setPower(-.4);
-        } else if (gamepad2.x) {
-            harvester.setPower(-1);
-        } else {
+        }
+        else if (gamepad2.y) {
+            harvester.setPower(-.3);
+        }
+        else if (gamepad2.x) {
+            harvester.setPower(-.75);
+        }
+        else {
             harvester.setPower(0);
         }
 
