@@ -1,5 +1,4 @@
-package Vision;
-
+package org.firstinspires.ftc.teamcode.vision;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
@@ -11,7 +10,7 @@ import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 
-public class EOCV_TEST extends OpenCvPipeline {
+public class eocvTest extends OpenCvPipeline {
     public enum ElementPosition{
         LEFT,
         MIDDLE,
@@ -42,7 +41,7 @@ public class EOCV_TEST extends OpenCvPipeline {
             new Point(860, 200),
             new Point(1160, 520));
 
-    public EOCV_TEST(Telemetry t) { telemetry = t; } //Constructor
+    public eocvTest(Telemetry t) { telemetry = t; } //Constructor
 
     @Override
     public void init(Mat input) {
@@ -117,4 +116,3 @@ public class EOCV_TEST extends OpenCvPipeline {
         // perform any sort heavy processing here! Your app might hang otherwise
     }
 }
-
