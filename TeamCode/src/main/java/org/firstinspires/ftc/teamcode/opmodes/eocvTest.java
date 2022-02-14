@@ -1,4 +1,4 @@
-package eocv;
+package org.firstinspires.ftc.teamcode.opmodes;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
