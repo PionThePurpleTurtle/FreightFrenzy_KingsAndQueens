@@ -1,6 +1,8 @@
-package org.firstinspires.ftc.teamcode;
+package Vision;
+
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.ShippingElementDetector;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -10,8 +12,7 @@ import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 
-public class ShippingElementDetector extends OpenCvPipeline {
-
+public class EOCV_TEST extends OpenCvPipeline {
     public enum ElementPosition{
         LEFT,
         MIDDLE,
@@ -42,12 +43,7 @@ public class ShippingElementDetector extends OpenCvPipeline {
             new Point(860, 200),
             new Point(1160, 520));
 
-    public ShippingElementDetector(Telemetry t) { telemetry = t; } //Constructor
-
-    @Override
-    public void init(Mat input) {
-        // Executed before the first call to processFrame
-    }
+    public EOCV_TEST(Telemetry t) { telemetry = t; } //Constructor
 
     @Override
     public Mat processFrame(Mat input) { //Turn color image to greyscale
@@ -101,19 +97,14 @@ public class ShippingElementDetector extends OpenCvPipeline {
         Scalar red = new Scalar(255,0,0); //define red and green vals for rectangles
         Scalar green = new Scalar(0,255,0);
 
-        Imgproc.rectangle(mat, LEFT_ROI, elementPosition==ElementPosition.LEFT ? green : red); //Color each box green or red depending on whether it is the calculated position
-        Imgproc.rectangle(mat, MIDDLE_ROI, elementPosition==ElementPosition.MIDDLE ? green : red);
-        Imgproc.rectangle(mat, RIGHT_ROI, elementPosition==ElementPosition.RIGHT ? green : red);
+        Imgproc.rectangle(mat, LEFT_ROI, elementPosition== ElementPosition.LEFT ? green : red); //Color each box green or red depending on whether it is the calculated position
+        Imgproc.rectangle(mat, MIDDLE_ROI, elementPosition== ElementPosition.MIDDLE ? green : red);
+        Imgproc.rectangle(mat, RIGHT_ROI, elementPosition== ElementPosition.RIGHT ? green : red);
 
         return mat;
     }
     public ElementPosition getElementPosition(){
         return elementPosition;
     }
-    @Override
-    public void onViewportTapped() {
-        // Executed when the image display is clicked by the mouse or tapped
-        // This method is executed from the UI thread, so be careful to not
-        // perform any sort heavy processing here! Your app might hang otherwise
-    }
 }
+
