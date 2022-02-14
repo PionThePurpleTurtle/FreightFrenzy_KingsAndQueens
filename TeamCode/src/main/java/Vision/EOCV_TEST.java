@@ -2,7 +2,6 @@ package Vision;
 
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.ShippingElementDetector;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -44,6 +43,11 @@ public class EOCV_TEST extends OpenCvPipeline {
             new Point(1160, 520));
 
     public EOCV_TEST(Telemetry t) { telemetry = t; } //Constructor
+
+    @Override
+    public void init(Mat input) {
+        // Executed before the first call to processFrame
+    }
 
     @Override
     public Mat processFrame(Mat input) { //Turn color image to greyscale
@@ -105,6 +109,12 @@ public class EOCV_TEST extends OpenCvPipeline {
     }
     public ElementPosition getElementPosition(){
         return elementPosition;
+    }
+    @Override
+    public void onViewportTapped() {
+        // Executed when the image display is clicked by the mouse or tapped
+        // This method is executed from the UI thread, so be careful to not
+        // perform any sort heavy processing here! Your app might hang otherwise
     }
 }
 

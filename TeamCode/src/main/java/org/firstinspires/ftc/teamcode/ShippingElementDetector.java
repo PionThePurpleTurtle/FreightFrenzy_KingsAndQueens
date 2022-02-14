@@ -44,10 +44,6 @@ public class ShippingElementDetector extends OpenCvPipeline {
 
     public ShippingElementDetector(Telemetry t) { telemetry = t; } //Constructor
 
-    @Override
-    public void init(Mat input) {
-        // Executed before the first call to processFrame
-    }
 
     @Override
     public Mat processFrame(Mat input) { //Turn color image to greyscale
@@ -110,10 +106,5 @@ public class ShippingElementDetector extends OpenCvPipeline {
     public ElementPosition getElementPosition(){
         return elementPosition;
     }
-    @Override
-    public void onViewportTapped() {
-        // Executed when the image display is clicked by the mouse or tapped
-        // This method is executed from the UI thread, so be careful to not
-        // perform any sort heavy processing here! Your app might hang otherwise
-    }
+
 }
