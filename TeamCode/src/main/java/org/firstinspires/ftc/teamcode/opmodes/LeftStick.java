@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.external.State;
@@ -11,13 +11,13 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@TeleOp(name = "One Controller")
+@TeleOp(name = "Left Stick")
 
-public class KQ_TeleOp extends OpMode {
+public class LeftStick extends OpMode {
 
     DcMotor leftFront, rightFront, leftRear, rightRear;
     DcMotor duckW, harvester, spool;
-    Servo dumpster;
+    Servo dumpster, cap;
     // DcMotor rightScissor, leftScissor, leftIn, rightIn;
     // Servo scoreSlide, blockM, cap, grab2, StoneSnatch;
     // CRServo topSlide, tape;
@@ -54,7 +54,7 @@ public class KQ_TeleOp extends OpMode {
         //   rightIn = hardwareMap.dcMotor.get("rightIn");
         //   blockM = hardwareMap.servo.get("blockM");
         //   grab2 = hardwareMap.servo.get("grab2");
-        //   cap = hardwareMap.servo.get("cap");
+           cap = hardwareMap.servo.get("cap");
         //   StoneSnatch = hardwareMap.servo.get("StoneSnatch");
 
         rightRear.setDirection(DcMotor.Direction.REVERSE);
@@ -93,7 +93,7 @@ public class KQ_TeleOp extends OpMode {
         double strafe;
         double rotate;
 
-        drive = gamepad1.left_stick_y * .75;
+        drive = -gamepad1.left_stick_y * .75;
         strafe = gamepad1.left_stick_x * .75;
         rotate = gamepad1.right_stick_x * .75;
 
@@ -150,24 +150,31 @@ public class KQ_TeleOp extends OpMode {
 
         //  topSlide.setPower(Range.clip(gamepad2.right_stick_y, -.9, .9));
 
-        if (gamepad1.left_trigger != 0) {
-            spool.setPower(1);
-        } else if (gamepad1.right_trigger != 0) {
-            spool.setPower(-1);
-        } else {
-            spool.setPower(0);
-        }
+        spool.setPower(-gamepad2.left_stick_y);
 
-        if (gamepad1.dpad_left) {
-            duckW.setPower(.53);
-        } else if (gamepad1.dpad_right) {
-            duckW.setPower(-.53);
+        if (gamepad2.dpad_left) {
+            duckW.setPower(.56);
+        } else if (gamepad2.dpad_right) {
+            duckW.setPower(-.56);
         } else {
             duckW.setPower(0);
         }
 
+        if (-gamepad2.right_stick_y < 0){
+            cap.setPosition(cap.getPosition() - .005);
+        }
+        else if (-gamepad2.right_stick_y > 0){
+            cap.setPosition(cap.getPosition() + .005);
+        }
+        else if (gamepad2.dpad_up){
+            cap.setPosition(0.6);
+        }
+        else if (gamepad2.dpad_down){
+            cap.setPosition(0);
+        }
 
-        if (gamepad1.a && !bumperButtonState) {
+
+        if (gamepad2.a && !bumperButtonState) {
             grabIsActive = !grabIsActive;
         }
 
@@ -177,24 +184,28 @@ public class KQ_TeleOp extends OpMode {
             dumpster.setPosition(.635);
         }
 
-        if (gamepad1.dpad_down && !inState) {
+        if (gamepad2.left_bumper && !inState) {
             inActive = !inActive;
         }
 
         if (inActive) {
-            harvester.setPower(-.62);
-        } else if (gamepad1.dpad_up) {
+            harvester.setPower(-.525);
+        }
+        else if (gamepad2.right_bumper) {
             harvester.setPower(.2);
-        } else if (gamepad1.y) {
-            harvester.setPower(-.4);
-        } else if (gamepad1.x) {
-            harvester.setPower(-1);
-        } else {
+        }
+        else if (gamepad2.y) {
+            harvester.setPower(-.3);
+        }
+        else if (gamepad2.x) {
+            harvester.setPower(-.75);
+        }
+        else {
             harvester.setPower(0);
         }
 
-        inState = gamepad1.dpad_down;
-        bumperButtonState = gamepad1.a;
+        inState = gamepad2.left_bumper;
+        bumperButtonState = gamepad2.a;
 
 
         //  double rightInPower;

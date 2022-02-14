@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.List;
 
 @Disabled
-@Autonomous(name = "No")
-public class Park_Far extends LinearOpMode {
+@Autonomous(name = "Red ONLY Park")
+public class JustParkRed extends LinearOpMode {
     DcMotor leftFront, rightFront, leftRear, rightRear;
     DcMotor duckW, harvester, spool;
     Servo dumpster;
@@ -72,59 +72,24 @@ public class Park_Far extends LinearOpMode {
 // //   }
 
 
-    void Turn45Right() {
+    void Turn45Left() {
         leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
 
-        leftFront.setTargetPosition(-430);
-        leftRear.setTargetPosition(-430);
-        rightFront.setTargetPosition(430);
-        rightRear.setTargetPosition(430);
+        leftFront.setTargetPosition(430);
+        leftRear.setTargetPosition(430);
+        rightFront.setTargetPosition(-430);
+        rightRear.setTargetPosition(-430);
         leftFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
-        leftFront.setPower(-.3);
-        leftRear.setPower(-.3);
-        rightFront.setPower(.3);
-        rightRear.setPower(.3);
-        while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
-            sleep(0);
-        }
-        leftFront.setPower(0);
-        leftRear.setPower(0);
-        rightFront.setPower(0);
-        rightRear.setPower(0);
-        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    }
-
-    void Turn90Right() {
-        leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
-        leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
-        rightFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
-
-        leftFront.setTargetPosition(-660);
-        leftRear.setTargetPosition(-660);
-        rightFront.setTargetPosition(660);
-        rightRear.setTargetPosition(660);
-        leftFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
-        leftRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
-        rightFront.setMode(DcMotor.RunMode. RUN_TO_POSITION);
-        rightRear.setMode(DcMotor.RunMode. RUN_TO_POSITION);
-        leftFront.setPower(-.3);
-        leftRear.setPower(-.3);
-        rightFront.setPower(.3);
-        rightRear.setPower(.3);
+        leftFront.setPower(.3);
+        leftRear.setPower(.3);
+        rightFront.setPower(-.3);
+        rightRear.setPower(-.3);
         while (opModeIsActive()&& leftFront.isBusy() && leftRear.isBusy() && rightFront.isBusy() && rightRear.isBusy()) {
             sleep(0);
         }
@@ -438,7 +403,6 @@ public class Park_Far extends LinearOpMode {
 
 
 
-
     @Override
     public void runOpMode() throws InterruptedException {
         leftFront = hardwareMap.dcMotor.get("leftFront");
@@ -480,27 +444,21 @@ public class Park_Far extends LinearOpMode {
             telemetry.addData("time", getRuntime());
             telemetry.update();
         }
-        //blue side
+        //red side
         while (opModeIsActive()) {
             dumpster.setPosition(.2);
-            Backward(27);
+            Backward(23);
             scoreTop();
-            Forward(16);
+            Forward(8);
             sleep(200);
-            Turn45Right();
-            sleep(200);
-            Forward(30);
-            sleep(200);
-            Turn90Right();
-            sleep(200);
-            Backward(8);
-            sleep(200);
-            duckW.setPower(-.5);
-            sleep(3500);
-            duckW.setPower(0);
-            sleep(250);
-            Forward(17);
-            strafeLeft(10);
+            Turn45Left();
+            Forward(70);
+
+
+            // strafeLeft(30);
+            // Forward(70);
+
+
 
             sleep(9000000);
         }

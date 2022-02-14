@@ -1,35 +1,19 @@
-package org.firstinspires.ftc.teamcode;
-
-import android.graphics.Path;
+package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import java.util.List;
 
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvWebcam;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.opencv.core.Mat;
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
-import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-import org.openftc.easyopencv.OpenCvPipeline;
-import org.openftc.easyopencv.OpenCvWebcam;
 
 //@Disabled //Comment out to run
-@Autonomous(name = "Blue Warehouse Side", group = "Auto")
-public class DetectionWarehouseAutoBlue extends LinearOpMode {
+@Autonomous(name = "Red Warehouse Side", group = "Auto")
+public class DetectionWarehouseAutoRed extends LinearOpMode {
 
     OpenCvWebcam webcam;
     private String position;
@@ -39,7 +23,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
     DcMotor leftFront, rightFront, leftRear, rightRear;
     DcMotor duckW, harvester, spool;
     Servo dumpster;
-    int wait = 0;
+    int wait;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -51,10 +35,10 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
         harvester = hardwareMap.dcMotor.get("harvester");
         spool = hardwareMap.dcMotor.get("spool");
         dumpster = hardwareMap.servo.get("dumpy");
-        
+
         rightRear.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.REVERSE);
-        
+
         rightRear.setPower(0);
         rightFront.setPower(0);
         leftRear.setPower(0);
@@ -62,7 +46,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
         duckW.setPower(0);
         harvester.setPower(0);
         spool.setPower(0);
-        
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         ShippingElementDetector detector = new ShippingElementDetector(telemetry);
@@ -92,7 +76,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
                  */
             }
         });
-        
+
 
         while (!isStarted() && !isStopRequested()){
             position = detector.position;
@@ -126,85 +110,85 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()){
             telemetry.update();
-                switch (detector.getElementPosition()){
-                    case LEFT: //low
-                        telemetry.addLine("Position Detected: LEFT");
-                        telemetry.update();
-                        
-                        earlyActions();
-                        Backward(12,.35);
-                        sleep(100);
-                        scoreLow();
-                        Forward(2,.5);
-                        sleep(50);
-                        Turn90Right();
-                        sleep(50);
-                        Forward(80,.4);
+            switch (detector.getElementPosition()){
+                case LEFT: //low
+                    telemetry.addLine("Position Detected: LEFT");
+                    telemetry.update();
 
-                        
-                        break;
-                    case MIDDLE: //mid
-                        telemetry.addLine("Position Detected: MIDDLE");
-                        telemetry.update();
-                        
-                        earlyActions();
-                        scoreMid();
-//                        Forward(2,.5);
-//                        sleep(50);
-                        Turn90Right();
-                        sleep(50);
-                        Forward(80,.4);
+                    earlyActions();
+                    Backward(14,.3);
+                    sleep(100);
+                    scoreLow();
+                    Forward(4,.5);
+                    sleep(50);
+                    Turn90Left();
+                    sleep(50);
+                    Forward(80,.4);
 
 
-                        
-                        break;
-                    case RIGHT: //top
-                        telemetry.addLine("Position Detected: RIGHT");
-                        telemetry.update();
+                    break;
+                case MIDDLE: //mid
+                    telemetry.addLine("Position Detected: MIDDLE");
+                    telemetry.update();
 
-                        earlyActions();
-                        Backward(11,.35);
-                        sleep(100);
-                        scoreTop();
-                        Forward(2,.5);
-                        sleep(50);
-                        Turn90Right();
-                        sleep(50);
-                        Forward(80,.4);
+                    earlyActions();
+                    scoreMid();
+//                    Forward(2,.5);
+//                    sleep(50);
+                    Turn90Left();
+                    sleep(50);
+                    Forward(80,.4);
 
 
-                        
-                        break;
-                    default:
-                        strafeRight(20);
-                        telemetry.addLine("None");
-                        telemetry.update();
-                        break;
-                        
-                        
-                        
-                }
-                sleep(100000000);
+
+                    break;
+                case RIGHT: //top
+                    telemetry.addLine("Position Detected: RIGHT");
+                    telemetry.update();
+
+                    earlyActions();
+                    Backward(13,.35);
+                    sleep(100);
+                    scoreTop();
+                    Forward(3,.5);
+                    sleep(50);
+                    Turn90Left();
+                    sleep(50);
+                    Forward(80,.4);
+
+
+
+                    break;
+                default:
+                    strafeRight(20);
+                    telemetry.addLine("None");
+                    telemetry.update();
+                    break;
+
+
+
             }
+            sleep(100000000);
+        }
         webcam.stopStreaming();
     }
-    
+
     void earlyActions(){
         dumpster.setPosition(.2);
         sleep(wait * 1000);
-        strafeLeft(2);
+        strafeRight(2);
         sleep(50);
         Forward(2, .2);
         Backward(6,.3);
         sleep(100);
-        Turn90Right();
+        Turn90Left();
         sleep(100);
         Backward(22,.4);
         sleep(100);
-        Turn90Left();
+        Turn90Right();
         sleep(100);
     }
-    
+
     void Turn45Right() {
         leftFront.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
         leftRear.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
@@ -530,8 +514,8 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
 
         dumpster.setPosition(.5);
         sleep(400);
-        Backward(16,.3);
-        dumpster.setPosition(.65);
+        Backward(15,.3);
+        dumpster.setPosition(.64);
         sleep(2500);
         dumpster.setPosition(.5);
         sleep(400);
@@ -563,7 +547,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
         }
         spool.setPower(0);
         spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        dumpster.setPosition(.64);
+        dumpster.setPosition(.635);
         sleep(2500);
         dumpster.setPosition(.2);
         sleep(500);
@@ -580,7 +564,7 @@ public class DetectionWarehouseAutoBlue extends LinearOpMode {
     }
 
     void duck(){
-        duckW.setPower(.5);
+        duckW.setPower(-.5);
         sleep(3500);
         duckW.setPower(0);
     }

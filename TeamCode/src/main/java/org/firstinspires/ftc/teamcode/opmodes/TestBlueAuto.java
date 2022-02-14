@@ -1,35 +1,21 @@
-package org.firstinspires.ftc.teamcode;
-
-import android.graphics.Path;
+package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import java.util.List;
 
+import org.firstinspires.ftc.teamcode.opmodes.ShippingElementDetector;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvWebcam;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.opencv.core.Mat;
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
-import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-import org.openftc.easyopencv.OpenCvPipeline;
-import org.openftc.easyopencv.OpenCvWebcam;
 
-//@Disabled //Comment out to run
-@Autonomous(name = "Blue Duck and Park", group = "Auto")
-public class DetectionDuckAutoBlue extends LinearOpMode {
+@Disabled //Comment out to run
+@Autonomous(name = "Test Blue Auto", group = "Auto")
+public class TestBlueAuto extends LinearOpMode {
 
     OpenCvWebcam webcam;
     private String position;
@@ -50,10 +36,10 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         harvester = hardwareMap.dcMotor.get("harvester");
         spool = hardwareMap.dcMotor.get("spool");
         dumpster = hardwareMap.servo.get("dumpy");
-        
+
         rightRear.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.REVERSE);
-        
+
         rightRear.setPower(0);
         rightFront.setPower(0);
         leftRear.setPower(0);
@@ -61,7 +47,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         duckW.setPower(0);
         harvester.setPower(0);
         spool.setPower(0);
-        
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         ShippingElementDetector detector = new ShippingElementDetector(telemetry);
@@ -91,7 +77,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
                  */
             }
         });
-        
+
 
         while (!isStarted() && !isStopRequested()){
             position = detector.position;
@@ -127,7 +113,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
                     sleep(100);
                     Turn180();
                     sleep(100);
-                    Backward(10,.3);
+                    Backward(4,.3);
 
                     break;
                 case MIDDLE: //mid
@@ -140,7 +126,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
                     sleep(100);
                     Turn180();
                     sleep(100);
-                    Backward(10,.3);
+                    Backward(4,.3);
 
                     break;
                 case RIGHT: //top
@@ -148,7 +134,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
                     telemetry.update();
 
                     earlyActions();
-                    Backward(14,.3);
+                    Backward(16,.3);
                     sleep(100);
                     scoreTop();
                     Forward(29,.5);
@@ -157,7 +143,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
                     sleep(100);
                     Turn180();
                     sleep(100);
-                    Backward(10,.3);
+                    Backward(4,.3);
 
                     break;
                 default:
@@ -181,10 +167,9 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         Turn90Right();
         sleep(100);
         Backward(25,.6);
-        sleep(50);
         Backward(10, .2);
         sleep(100);
-        strafeLeft(5);
+        strafeLeft(3);
         sleep(100);
         duck();
         sleep(100);
@@ -514,7 +499,7 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
 
-        spool.setTargetPosition(475);
+        spool.setTargetPosition(513);
         spool.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         spool.setPower(1);
         while (opModeIsActive()&& spool.isBusy()) {
@@ -522,13 +507,13 @@ public class DetectionDuckAutoBlue extends LinearOpMode {
         }
         spool.setPower(0);
         spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        dumpster.setPosition(.65);
+        dumpster.setPosition(.64);
         sleep(2500);
         dumpster.setPosition(.2);
         sleep(500);
         spool.setMode(DcMotor.RunMode. STOP_AND_RESET_ENCODER);
 
-        spool.setTargetPosition(-475);
+        spool.setTargetPosition(-513);
         spool.setMode(DcMotor.RunMode. RUN_TO_POSITION);
         spool.setPower(-1);
         while (opModeIsActive()&& spool.isBusy()) {
