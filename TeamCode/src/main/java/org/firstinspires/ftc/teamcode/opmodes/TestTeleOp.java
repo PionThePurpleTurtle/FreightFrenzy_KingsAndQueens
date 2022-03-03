@@ -58,7 +58,7 @@ public class TestTeleOp extends OpMode {
     final double DUMP_DEPOSIT = .635; // the dumping position for the dump servo
 
     // the amount of time the dump servo takes to activate in seconds
-    final double DUMP_TIME = 1.25;
+    final double DUMP_TIME = 1.10;
 
 
     final int LIFT_LOW = 0; // the low encoder position for the lift
@@ -138,6 +138,7 @@ public class TestTeleOp extends OpMode {
 
         duckW.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        harvester.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //spool.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -178,27 +179,33 @@ public class TestTeleOp extends OpMode {
 
         //spool.setPower(-gamepad2.left_stick_y);
 
-        if (gamepad2.dpad_left) {
-            duckW.setPower(.53);
+        if (gamepad2.left_trigger!=0){
+            duckW.setPower(1);
+        }
+        else if (gamepad2.right_trigger!=0){
+            duckW.setPower(-1);
+        }
+        else if (gamepad2.dpad_left) {
+            duckW.setPower(.45);
         }
         else if (gamepad2.dpad_right) {
-            duckW.setPower(-.53);
+            duckW.setPower(-.45);
         }
         else {
             duckW.setPower(0);
         }
 
         if (-gamepad2.right_stick_y < 0){
-            cap.setPosition(cap.getPosition() + .005);
-        }
-        else if (-gamepad2.right_stick_y > 0){
             cap.setPosition(cap.getPosition() - .005);
         }
+        else if (-gamepad2.right_stick_y > 0){
+            cap.setPosition(cap.getPosition() + .005);
+        }
         else if (gamepad2.dpad_up){
-            cap.setPosition(0.2);
+            cap.setPosition(.9);
         }
         else if (gamepad2.dpad_down){
-            cap.setPosition(.7);
+            cap.setPosition(0);
         }
 
 
@@ -207,16 +214,16 @@ public class TestTeleOp extends OpMode {
         }
 
         if (inActive) {
-            harvester.setPower(-.525);
+            harvester.setPower(-1);
         }
         else if (gamepad2.right_bumper) {
-            harvester.setPower(.2);
+            harvester.setPower(1);
         }
        else if (gamepad2.y) {
-           harvester.setPower(-.3);
+           harvester.setPower(-.75);
        }
         else if (gamepad2.x) {
-            harvester.setPower(-.75);
+            harvester.setPower(.4);
         }
         else {
             harvester.setPower(0);

@@ -170,7 +170,7 @@ public class DetectionDuckAutoRed extends LinearOpMode {
         sleep(100);
         strafeLeft(12);
         sleep(100);
-        Backward(8, .2);
+        Backward(9, .1);
         sleep(100);
         duck();
         sleep(100);
