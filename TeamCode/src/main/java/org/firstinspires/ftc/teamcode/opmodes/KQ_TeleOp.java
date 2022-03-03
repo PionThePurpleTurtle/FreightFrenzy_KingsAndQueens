@@ -17,7 +17,7 @@ public class KQ_TeleOp extends OpMode {
 
     DcMotor leftFront, rightFront, leftRear, rightRear;
     DcMotor duckW, harvester, spool;
-    Servo dumpster;
+    Servo dumpster, cap;
     // DcMotor rightScissor, leftScissor, leftIn, rightIn;
     // Servo scoreSlide, blockM, cap, grab2, StoneSnatch;
     // CRServo topSlide, tape;
@@ -54,7 +54,7 @@ public class KQ_TeleOp extends OpMode {
         //   rightIn = hardwareMap.dcMotor.get("rightIn");
         //   blockM = hardwareMap.servo.get("blockM");
         //   grab2 = hardwareMap.servo.get("grab2");
-        //   cap = hardwareMap.servo.get("cap");
+            cap = hardwareMap.servo.get("cap");
         //   StoneSnatch = hardwareMap.servo.get("StoneSnatch");
 
         rightRear.setDirection(DcMotor.Direction.REVERSE);
@@ -140,6 +140,17 @@ public class KQ_TeleOp extends OpMode {
         leftRear.setPower(driveInput - strafeInput + rotateInput);
         rightFront.setPower(driveInput - strafeInput - rotateInput);
         rightRear.setPower(driveInput + strafeInput - rotateInput);
+
+
+         if (gamepad2.dpad_up){
+            cap.setPosition(.5);
+        }
+        else if (gamepad2.dpad_down) {
+            cap.setPosition(0);
+        }
+        else {
+            cap.setPosition(-.5);
+         }
 
 
         //  leftScissor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
